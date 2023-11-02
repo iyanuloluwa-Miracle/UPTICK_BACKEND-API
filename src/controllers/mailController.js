@@ -1,4 +1,5 @@
 const config = require('../config/config');
+const transporter = require('../config/mailer');
 
 class MailController {
   static async sendMail(req, res) {
