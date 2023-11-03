@@ -1,8 +1,8 @@
 const express = require('express');
-const connectToPostgres = require('./config/database');
 const bodyParser = require('body-parser');
 const config = require('./config/config');
 const route = require('./routes/index');
+const { sequelize } = require('./models');
 
 const app = express();
 
@@ -13,7 +13,16 @@ app.use(bodyParser.json());
 // Your routes here
 app.use('/api', route);
 
-// Connect to database
-config.db.postgres.client = connectToPostgres();
+const port = config.port || 3000;
 
-app.listen(3000, () => console.log('Server running on port 3000'));
+// Check database connection and start app
+sequelize.authenticate()
+.then(() => {
+  console.log('db connected');
+
+  app.listen(port, () => {
+    console.log(`Server running on port ${port}`);
+  });
+})
+.catch((error) => console.log(`error connecting: ${error}`));
+
