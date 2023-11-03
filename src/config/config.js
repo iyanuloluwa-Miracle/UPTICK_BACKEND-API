@@ -19,8 +19,7 @@ module.exports = {
         password: process.env.DB_PASS,
         database: process.env.DB_NAME,
         logging: false
-      },
-      client: null
+      }
     }
   },
   port: process.env.PORT
