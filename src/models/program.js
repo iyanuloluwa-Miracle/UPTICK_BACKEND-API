@@ -1,5 +1,5 @@
-const { Sequelize, Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
+const { Model, DataTypes } = require('sequelize');
+const { sequelize } = require('./index');
 
 class Program extends Model {}
 
@@ -21,6 +21,9 @@ Program.init({
   EnrollmentInformation: DataTypes.TEXT,
   StartDate: DataTypes.DATE,
   EndDate: DataTypes.DATE
-}, { sequelize, modelName: 'Program' });
+},
+{ sequelize,
+  modelName: 'program'
+});
 
 module.exports = Program;

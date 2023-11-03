@@ -1,5 +1,5 @@
-const { Sequelize, Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
+const { Model, DataTypes } = require('sequelize');
+const { sequelize } = require('./index');
 
 class BlogPost extends Model {}
 
@@ -15,6 +15,9 @@ BlogPost.init({
   PublicationDate: DataTypes.DATE,
   Tags: DataTypes.ARRAY(DataTypes.STRING),
   ImageURL: DataTypes.STRING
-}, { sequelize, modelName: 'BlogPost' });
+},
+{ sequelize,
+  modelName: 'blogPost'
+});
 
 module.exports = BlogPost;

@@ -1,5 +1,5 @@
-const { Sequelize, Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
+const { Model, DataTypes } = require('sequelize');
+const { sequelize } = require('./index');
 
 class ContactUsRequest extends Model {}
 
@@ -14,6 +14,10 @@ ContactUsRequest.init({
   Phone: DataTypes.STRING,
   Message: DataTypes.TEXT,
   DateSubmitted: DataTypes.DATE
-}, { sequelize, modelName: 'ContactUsRequest' });
+},
+{
+  sequelize,
+  modelName: 'contactUsRequest'
+});
 
 module.exports = ContactUsRequest;

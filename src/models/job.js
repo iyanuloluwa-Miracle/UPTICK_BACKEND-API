@@ -1,5 +1,5 @@
-const { Sequelize, Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
+const { Model, DataTypes } = require('sequelize');
+const { sequelize } = require('./index');
 
 class Job extends Model {}
 
@@ -17,6 +17,9 @@ Job.init({
   ApplicationDeadline: DataTypes.DATE,
   StartDate: DataTypes.DATE,
   EndDate: DataTypes.DATE
-}, { sequelize, modelName: 'Job' });
+},
+{ sequelize,
+  modelName: 'job'
+});
 
 module.exports = Job;

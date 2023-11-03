@@ -1,5 +1,5 @@
-const { Sequelize, Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
+const { Model, DataTypes } = require('sequelize');
+const { sequelize } = require('./index');
 
 class AdminUser extends Model {}
 
@@ -12,6 +12,9 @@ AdminUser.init({
   Username: DataTypes.STRING,
   Password: DataTypes.STRING,
   Role: DataTypes.STRING
-}, { sequelize, modelName: 'AdminUser' });
+},
+{ sequelize,
+  modelName: 'AdminUser'
+});
 
 module.exports = AdminUser;

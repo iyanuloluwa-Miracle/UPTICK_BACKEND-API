@@ -1,24 +1,28 @@
-const { Sequelize, Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/database');
+const { Model, DataTypes } = require('sequelize');
+const { sequelize } = require('./index');
 
 class Applicant extends Model {}
 
+// console.log(config.db.postgres.client);
 Applicant.init({
-  ApplicantID: {
+  applicantID: {
     type: DataTypes.INTEGER,
     primaryKey: true,
     autoIncrement: true
   },
-  FirstName: DataTypes.STRING,
-  LastName: DataTypes.STRING,
-  Email: DataTypes.STRING,
-  Phone: DataTypes.STRING,
-  Address: DataTypes.STRING,
-  ResumeFile: DataTypes.STRING,
-  ProgramPreferenceID: DataTypes.INTEGER,
-  JobAppliedForID: DataTypes.INTEGER,
-  ApplicationDate: DataTypes.DATE,
-  Status: DataTypes.STRING
-}, { sequelize, modelName: 'Applicant' });
+  firstName: DataTypes.STRING,
+  lastName: DataTypes.STRING,
+  email: DataTypes.STRING,
+  phone: DataTypes.STRING,
+  address: DataTypes.STRING,
+  resumeFile: DataTypes.STRING,
+  programPreferenceID: DataTypes.INTEGER,
+  jobAppliedForID: DataTypes.INTEGER,
+  applicationDate: DataTypes.DATE,
+  status: DataTypes.STRING
+},
+{ sequelize,
+  modelName: 'applicant'
+});
 
 module.exports = Applicant;
