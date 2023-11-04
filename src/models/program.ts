@@ -1,4 +1,10 @@
-import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOptional } from "sequelize";
+import {
+  Model,
+  DataTypes,
+  InferAttributes,
+  InferCreationAttributes,
+  CreationOptional,
+} from "sequelize";
 import { sequelize } from "./index";
 
 export interface ProgramAttributes {
@@ -17,9 +23,10 @@ export interface ProgramAttributes {
   EndDate: Date | string;
 }
 
-class Program extends Model<
-InferAttributes<Program>, InferCreationAttributes<Program>
-> implements ProgramAttributes {
+class Program
+  extends Model<InferAttributes<Program>, InferCreationAttributes<Program>>
+  implements ProgramAttributes
+{
   declare ProgramID: CreationOptional<string>;
   declare Name: string;
   declare Description: string;
@@ -44,52 +51,52 @@ Program.init(
     },
     Name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     Description: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     Type: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     CurriculumOutline: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     Objectives: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     Benefits: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     Prerequisites: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     Duration: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     ApplicationFormLink: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     EnrollmentInformation: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     StartDate: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
     },
     EndDate: {
       type: DataTypes.DATE,
-      allowNull: false
-    }
+      allowNull: false,
+    },
   },
   { sequelize, modelName: "program" },
 );

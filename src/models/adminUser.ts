@@ -1,4 +1,10 @@
-import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOptional } from "sequelize";
+import {
+  Model,
+  DataTypes,
+  InferAttributes,
+  InferCreationAttributes,
+  CreationOptional,
+} from "sequelize";
 import { sequelize } from "./index";
 
 export interface AdminUserAttributes {
@@ -8,9 +14,10 @@ export interface AdminUserAttributes {
   Role: string;
 }
 
-class AdminUser extends Model<
-InferAttributes<AdminUser>, InferCreationAttributes<AdminUser>
-> implements AdminUserAttributes {
+class AdminUser
+  extends Model<InferAttributes<AdminUser>, InferCreationAttributes<AdminUser>>
+  implements AdminUserAttributes
+{
   declare UserID: CreationOptional<string>;
   declare Username: string;
   declare Password: string;
@@ -26,16 +33,16 @@ AdminUser.init(
     },
     Username: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     Password: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     Role: {
       type: DataTypes.STRING,
-      allowNull: false
-    }
+      allowNull: false,
+    },
   },
   { sequelize, modelName: "AdminUser" },
 );

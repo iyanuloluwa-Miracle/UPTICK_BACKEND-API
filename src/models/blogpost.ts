@@ -1,4 +1,10 @@
-import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOptional } from "sequelize";
+import {
+  Model,
+  DataTypes,
+  InferAttributes,
+  InferCreationAttributes,
+  CreationOptional,
+} from "sequelize";
 import { sequelize } from "./index";
 
 export interface BlogPostAttributes {
@@ -11,9 +17,10 @@ export interface BlogPostAttributes {
   ImageURL: string;
 }
 
-class BlogPost extends Model<
-InferAttributes<BlogPost>, InferCreationAttributes<BlogPost>
-> implements BlogPostAttributes{
+class BlogPost
+  extends Model<InferAttributes<BlogPost>, InferCreationAttributes<BlogPost>>
+  implements BlogPostAttributes
+{
   declare PostID: CreationOptional<string>;
   declare Title: string;
   declare Content: string;
@@ -32,28 +39,28 @@ BlogPost.init(
     },
     Title: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     Content: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     Author: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     PublicationDate: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
     },
     Tags: {
       type: DataTypes.ARRAY(DataTypes.STRING),
-      allowNull: false
+      allowNull: false,
     },
     ImageURL: {
       type: DataTypes.STRING,
-      allowNull: false
-    }
+      allowNull: false,
+    },
   },
   { sequelize, modelName: "blogPost" },
 );

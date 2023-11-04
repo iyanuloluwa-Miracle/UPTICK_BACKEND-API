@@ -1,4 +1,10 @@
-import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOptional } from "sequelize";
+import {
+  Model,
+  DataTypes,
+  InferAttributes,
+  InferCreationAttributes,
+  CreationOptional,
+} from "sequelize";
 import { sequelize } from "./index";
 
 export interface ContactUsRequestAttributes {
@@ -10,9 +16,13 @@ export interface ContactUsRequestAttributes {
   DateSubmitted: Date | string;
 }
 
-class ContactUsRequest extends Model<
-InferAttributes<ContactUsRequest>, InferCreationAttributes<ContactUsRequest>
-> implements ContactUsRequestAttributes {
+class ContactUsRequest
+  extends Model<
+    InferAttributes<ContactUsRequest>,
+    InferCreationAttributes<ContactUsRequest>
+  >
+  implements ContactUsRequestAttributes
+{
   declare RequestID: CreationOptional<string>;
   declare Name: string;
   declare Email: string;
@@ -30,24 +40,24 @@ ContactUsRequest.init(
     },
     Name: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     Email: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     Phone: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     Message: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     DateSubmitted: {
       type: DataTypes.DATE,
-      allowNull: false
-    }
+      allowNull: false,
+    },
   },
   {
     sequelize,

@@ -1,4 +1,10 @@
-import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOptional } from "sequelize";
+import {
+  Model,
+  DataTypes,
+  InferAttributes,
+  InferCreationAttributes,
+  CreationOptional,
+} from "sequelize";
 import { sequelize } from "./index";
 
 export interface JobAttributes {
@@ -13,9 +19,10 @@ export interface JobAttributes {
   EndDate: Date | string;
 }
 
-class Job extends Model<
-InferAttributes<Job>, InferCreationAttributes<Job>
-> implements JobAttributes {
+class Job
+  extends Model<InferAttributes<Job>, InferCreationAttributes<Job>>
+  implements JobAttributes
+{
   declare JobID: CreationOptional<string>;
   declare Title: string;
   declare Description: string;
@@ -36,36 +43,36 @@ Job.init(
     },
     Title: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     Description: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     Requirements: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     ApplicationFormLink: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     CompanyLogo: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     ApplicationDeadline: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
     },
     StartDate: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
     },
     EndDate: {
       type: DataTypes.DATE,
-      allowNull: false
-    }
+      allowNull: false,
+    },
   },
   { sequelize, modelName: "job" },
 );

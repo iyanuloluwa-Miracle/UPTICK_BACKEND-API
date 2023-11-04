@@ -1,6 +1,11 @@
-import { Model, DataTypes, InferAttributes, InferCreationAttributes, CreationOptional } from "sequelize";
+import {
+  Model,
+  DataTypes,
+  InferAttributes,
+  InferCreationAttributes,
+  CreationOptional,
+} from "sequelize";
 import { sequelize } from "./index";
-
 
 export interface ApplicantAttributes {
   applicantID?: string;
@@ -14,10 +19,10 @@ export interface ApplicantAttributes {
   status: string;
 }
 
-class Applicant extends Model<
-InferAttributes<Applicant>,
-InferCreationAttributes<Applicant>
-> implements ApplicantAttributes{
+class Applicant
+  extends Model<InferAttributes<Applicant>, InferCreationAttributes<Applicant>>
+  implements ApplicantAttributes
+{
   declare applicantID: CreationOptional<string>;
   declare firstName: string;
   declare lastName: string;
@@ -38,37 +43,37 @@ Applicant.init(
     },
     firstName: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     lastName: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     email: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     phone: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     address: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     resumeFile: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
     // programPreferenceID: DataTypes.INTEGER,
     // jobAppliedForID: DataTypes.INTEGER,
     applicationDate: {
       type: DataTypes.DATE,
-      allowNull: false
+      allowNull: false,
     },
     status: {
       type: DataTypes.STRING,
-      allowNull: false
+      allowNull: false,
     },
   },
   { sequelize, modelName: "applicant" },
