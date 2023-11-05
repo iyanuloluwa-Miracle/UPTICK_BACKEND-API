@@ -11,7 +11,7 @@ import { Applicant } from ".";
 
 export interface JobAttributes {
   jobId?: string;
-  applicantId?: ForeignKey<Applicant['applicantId']>
+  applicantId?: ForeignKey<Applicant["applicantId"]>;
   title: string;
   description: string;
   requirements: string;
@@ -27,7 +27,7 @@ class Job
   implements JobAttributes
 {
   declare jobId: CreationOptional<string>;
-  declare applicantId: ForeignKey<Applicant['applicantId']>;
+  declare applicantId: ForeignKey<Applicant["applicantId"]>;
 
   declare title: string;
   declare description: string;
