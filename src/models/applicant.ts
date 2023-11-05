@@ -9,11 +9,10 @@ import {
 import sequelize from "../config/database";
 import { Program, Job } from ".";
 
-
 export interface ApplicantAttributes {
   applicantId?: string;
-  programId?: ForeignKey<Program['programId']>
-  jobId?: ForeignKey<Job['jobId']>
+  programId?: ForeignKey<Program["programId"]>;
+  jobId?: ForeignKey<Job["jobId"]>;
   firstName: string;
   lastName: string;
   email: string;
@@ -31,8 +30,8 @@ class Applicant
   // omit during model creation
   declare applicantId: CreationOptional<string>;
 
-  declare programId: ForeignKey<Program['programId']>;
-  declare jobId: ForeignKey<Job['jobId']>;
+  declare programId: ForeignKey<Program["programId"]>;
+  declare jobId: ForeignKey<Job["jobId"]>;
 
   declare firstName: string;
   declare lastName: string;
