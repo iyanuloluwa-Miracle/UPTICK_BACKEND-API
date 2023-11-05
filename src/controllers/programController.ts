@@ -1,59 +1,59 @@
 import { Request, Response } from "express";
-import { Program } from "../models";
+import { Program, Applicant } from "../models";
 import { ProgramAttributes } from "../models/program";
 import { getPaginationOptions } from "../utils/helper";
 
 // interface to be followed when updating a program
 interface ProgramUpdateAttributes {
-  ProgramID?: string;
-  Name?: string;
-  Description?: string;
-  Type?: string;
-  CurriculumOutline?: string;
-  Objectives?: string;
-  Benefits?: string;
-  Prerequisites?: string;
-  Duration?: string;
-  ApplicationFormLink?: string;
-  EnrollmentInformation?: string;
-  StartDate?: Date | string;
-  EndDate?: Date | string;
+  programId?: string;
+  name?: string;
+  description?: string;
+  type?: string;
+  curriculumOutline?: string;
+  objectives?: string;
+  benefits?: string;
+  prerequisites?: string;
+  duration?: string;
+  applicationFormLink?: string;
+  enrollmentInformation?: string;
+  startDate?: Date | string;
+  endDate?: Date | string;
 }
 
 class ProgramController {
+  // endpoint for admin to create programs
   static async createProgram(req: Request, res: Response): Promise<void> {
-    // endpoint for admin to create programs for uptick
     try {
       // Destructure properties from req.body
       const {
-        Name,
-        Description,
-        Type,
-        CurriculumOutline,
-        Objectives,
-        Benefits,
-        Prerequisites,
-        Duration,
-        ApplicationFormLink,
-        EnrollmentInformation,
-        StartDate,
-        EndDate,
+        name,
+        description,
+        type,
+        curriculumOutline,
+        objectives,
+        benefits,
+        prerequisites,
+        duration,
+        applicationFormLink,
+        enrollmentInformation,
+        startDate,
+        endDate,
       } = req.body as ProgramAttributes;
 
       // Create new Program
       const newProgram = await Program.create({
-        Name,
-        Description,
-        Type,
-        CurriculumOutline,
-        Objectives,
-        Benefits,
-        Prerequisites,
-        Duration,
-        ApplicationFormLink,
-        EnrollmentInformation,
-        StartDate: new Date(StartDate),
-        EndDate: new Date(EndDate),
+        name,
+        description,
+        type,
+        curriculumOutline,
+        objectives,
+        benefits,
+        prerequisites,
+        duration,
+        applicationFormLink,
+        enrollmentInformation,
+        startDate: new Date(startDate),
+        endDate: new Date(endDate),
       });
 
       // Send success response
@@ -79,7 +79,7 @@ class ProgramController {
 
       // Find the program
       const program = await Program.findOne({
-        where: { ProgramID: id },
+        where: { programId: id },
       });
 
       if (program) {
@@ -102,7 +102,7 @@ class ProgramController {
     }
   }
 
-  // endpoint to get all programs
+  // endpoint to get the list of all programs
   static async getPrograms(req: Request, res: Response): Promise<void> {
     try {
       // Get the page and limit query parameters
@@ -118,7 +118,7 @@ class ProgramController {
       // Fetch all Programs
       const programs = await Program.findAll({
         ...paginationOptions,
-        order: [["StartDate", "ASC"]], // Order programs by StartDate
+        order: [["startDate", "ASC"]], // Order programs by startDate
       });
 
       // Send success response
@@ -141,7 +141,7 @@ class ProgramController {
 
       // Find and delete the program
       const deletion = await Program.destroy({
-        where: { ProgramID: id },
+        where: { programId: id },
       });
 
       if (deletion) {
@@ -175,7 +175,7 @@ class ProgramController {
 
       // Update the program
       const [updateCount, updatedPrograms] = await Program.update(updateData, {
-        where: { ProgramID: id },
+        where: { programId: id },
         returning: true, // Return the updated program data
       });
 
@@ -201,6 +201,35 @@ class ProgramController {
       res.status(500).json({
         message: "An error occurred while updating the program",
       });
+    }
+  }
+
+  // endpoint to get the list of all applicants for a program
+  static async listApplicants(req: Request, res: Response): Promise<void> {
+    try {
+      const programId = req.params.id;  // assuming your route parameter is named 'id'
+
+      // Validate programId
+      if (!programId) {
+        res.status(400).send({ error: 'Program ID is required' });
+        return;
+      }
+
+      // Fetching applicants based on program ID
+      const applicants = await Applicant.findAll({
+        where: { programId },
+        include: [{
+          model: Program,
+          as: 'program',  // as per your association definition
+          attributes: ['name', 'description']  // adjust attributes to your needs
+        }]
+      });
+
+      // Sending response
+      res.status(200).json(applicants);
+    } catch (error) {
+      console.error(error);  // Log error (implement using a logging library later)
+      res.status(500).send({ error: 'An error occurred while fetching applicants' });
     }
   }
 }
