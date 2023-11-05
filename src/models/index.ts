@@ -15,7 +15,7 @@ const setupAssociations = () => {
   Job.hasMany(Applicant, { as: "applicants", foreignKey: "applicantId" });
 
   // Many-to-Many relationship
-  BlogPost.belongsToMany(Tag, { as: "tags", through: "BlogPostTags" });
+  BlogPost.belongsToMany(Tag, { as: "associatedTags", through: "BlogPostTags" });
   Tag.belongsToMany(BlogPost, { as: "blogPosts", through: "BlogPostTags" });
 };
 
