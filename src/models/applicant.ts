@@ -5,7 +5,7 @@ import {
   InferCreationAttributes,
   CreationOptional,
 } from "sequelize";
-import { sequelize } from "./index";
+import sequelize from "../config/database";
 
 export interface ApplicantAttributes {
   applicantID?: string;

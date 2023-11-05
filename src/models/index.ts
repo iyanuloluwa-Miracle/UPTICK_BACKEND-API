@@ -1,5 +1,3 @@
-import { Sequelize, Model } from "sequelize";
-import config from "../config/config";
 import Applicant from "./applicant";
 import Job from "./job";
 import Program from "./program";
@@ -7,11 +5,6 @@ import BlogPost from "./blogpost";
 import Tag from "./tag";
 import AdminUser from "./adminUser";
 import ContactUsRequest from "./contactUsRequest";
-
-// initialize db
-const sequelize = new Sequelize(config.db.postgres.options);
-
-// define relationships here
 
 const setupAssociations = () => {
   // Many-to-One relationships
@@ -29,13 +22,4 @@ const setupAssociations = () => {
 // Call the function to setup associations
 setupAssociations();
 
-export {
-  sequelize,
-  Applicant,
-  Job,
-  Program,
-  BlogPost,
-  Tag,
-  AdminUser,
-  ContactUsRequest,
-};
+export { Applicant, Job, Program, BlogPost, Tag, AdminUser, ContactUsRequest };

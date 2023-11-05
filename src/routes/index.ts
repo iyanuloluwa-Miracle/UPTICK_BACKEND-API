@@ -22,7 +22,7 @@ const defaultRoutes: DefaultRoute[] = [
   {
     path: "/programs",
     route: programRoute,
-  }
+  },
 ];
 
 defaultRoutes.forEach((val) => {

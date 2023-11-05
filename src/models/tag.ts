@@ -5,7 +5,7 @@ import {
   InferCreationAttributes,
   CreationOptional,
 } from "sequelize";
-import { sequelize } from "./index";
+import sequelize from "../config/database";
 
 export interface TagAttributes {
   TagID?: string;
@@ -34,7 +34,7 @@ Tag.init(
   },
   {
     sequelize,
-    modelName: "Tag",
+    modelName: "tag",
   },
 );
 
