@@ -4,96 +4,100 @@ import {
   InferAttributes,
   InferCreationAttributes,
   CreationOptional,
+  ForeignKey
 } from "sequelize";
 import sequelize from "../config/database";
+import { Applicant } from ".";
 
 export interface ProgramAttributes {
-  ProgramID?: string;
-  Name: string;
-  Description: string;
-  Type: string;
-  CurriculumOutline: string;
-  Objectives: string;
-  Benefits: string;
-  Prerequisites: string;
-  Duration: string;
-  ApplicationFormLink: string;
-  EnrollmentInformation: string;
-  StartDate: Date | string;
-  EndDate: Date | string;
+  programId?: string;
+  applicantId: ForeignKey<Applicant['applicantId']>
+  name: string;
+  description: string;
+  type: string;
+  curriculumOutline: string;
+  objectives: string;
+  benefits: string;
+  prerequisites: string;
+  duration: string;
+  applicationFormLink: string;
+  enrollmentInformation: string;
+  startDate: Date | string;
+  endDate: Date | string;
 }
 
 class Program
   extends Model<InferAttributes<Program>, InferCreationAttributes<Program>>
   implements ProgramAttributes
 {
-  declare ProgramID: CreationOptional<string>;
-  declare Name: string;
-  declare Description: string;
-  declare Type: string;
-  declare CurriculumOutline: string;
-  declare Objectives: string;
-  declare Benefits: string;
-  declare Prerequisites: string;
-  declare Duration: string;
-  declare ApplicationFormLink: string;
-  declare EnrollmentInformation: string;
-  declare StartDate: Date | string;
-  declare EndDate: Date | string;
+  declare programId: CreationOptional<string>;
+  declare applicantId: ForeignKey<Applicant['applicantId']>
+  declare name: string;
+  declare description: string;
+  declare type: string;
+  declare curriculumOutline: string;
+  declare objectives: string;
+  declare benefits: string;
+  declare prerequisites: string;
+  declare duration: string;
+  declare applicationFormLink: string;
+  declare enrollmentInformation: string;
+  declare startDate: Date | string;
+  declare endDate: Date | string;
 }
 
 Program.init(
   {
-    ProgramID: {
+    programId: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4, // Or DataTypes.UUIDV1
       primaryKey: true,
     },
-    Name: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Description: {
+    description: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Type: {
+    type: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    CurriculumOutline: {
+    curriculumOutline: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Objectives: {
+    objectives: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Benefits: {
+    benefits: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Prerequisites: {
+    prerequisites: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Duration: {
+    duration: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    ApplicationFormLink: {
+    applicationFormLink: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    EnrollmentInformation: {
+    enrollmentInformation: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    StartDate: {
+    startDate: {
       type: DataTypes.DATE,
       allowNull: false,
     },
-    EndDate: {
+    endDate: {
       type: DataTypes.DATE,
       allowNull: false,
     },

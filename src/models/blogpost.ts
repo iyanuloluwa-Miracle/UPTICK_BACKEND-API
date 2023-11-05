@@ -8,56 +8,56 @@ import {
 import sequelize from "../config/database";
 
 export interface BlogPostAttributes {
-  PostID?: string;
-  Title: string;
-  Content: string;
-  Author: string;
-  PublicationDate: Date | string;
-  Tags: string[];
-  ImageURL: string;
+  postId?: string;
+  title: string;
+  content: string;
+  author: string;
+  publicationDate: Date | string;
+  tags: string[];
+  imageUrl: string;
 }
 
 class BlogPost
   extends Model<InferAttributes<BlogPost>, InferCreationAttributes<BlogPost>>
   implements BlogPostAttributes
 {
-  declare PostID: CreationOptional<string>;
-  declare Title: string;
-  declare Content: string;
-  declare Author: string;
-  declare PublicationDate: Date | string;
-  declare Tags: string[];
-  declare ImageURL: string;
+  declare postId: CreationOptional<string>;
+  declare title: string;
+  declare content: string;
+  declare author: string;
+  declare publicationDate: Date | string;
+  declare tags: string[];
+  declare imageUrl: string;
 }
 
 BlogPost.init(
   {
-    PostID: {
+    postId: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4, // Or DataTypes.UUIDV1
       primaryKey: true,
     },
-    Title: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Content: {
+    content: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Author: {
+    author: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    PublicationDate: {
+    publicationDate: {
       type: DataTypes.DATE,
       allowNull: false,
     },
-    Tags: {
+    tags: {
       type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
     },
-    ImageURL: {
+    imageUrl: {
       type: DataTypes.STRING,
       allowNull: false,
     },

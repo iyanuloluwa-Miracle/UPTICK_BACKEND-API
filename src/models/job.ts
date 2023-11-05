@@ -4,72 +4,77 @@ import {
   InferAttributes,
   InferCreationAttributes,
   CreationOptional,
+  ForeignKey,
 } from "sequelize";
 import sequelize from "../config/database";
+import { Applicant } from ".";
 
 export interface JobAttributes {
-  JobID?: string;
-  Title: string;
-  Description: string;
-  Requirements: string;
-  ApplicationFormLink: string;
-  CompanyLogo: string;
-  ApplicationDeadline: Date | string;
-  StartDate: Date | string;
-  EndDate: Date | string;
+  jobId?: string;
+  applicantId?: ForeignKey<Applicant['applicantId']>
+  title: string;
+  description: string;
+  requirements: string;
+  applicationFormLink: string;
+  companyLogo: string;
+  applicationDeadline: Date | string;
+  startDate: Date | string;
+  endDate: Date | string;
 }
 
 class Job
   extends Model<InferAttributes<Job>, InferCreationAttributes<Job>>
   implements JobAttributes
 {
-  declare JobID: CreationOptional<string>;
-  declare Title: string;
-  declare Description: string;
-  declare Requirements: string;
-  declare ApplicationFormLink: string;
-  declare CompanyLogo: string;
-  declare ApplicationDeadline: Date | string;
-  declare StartDate: Date | string;
-  declare EndDate: Date | string;
+  declare jobId: CreationOptional<string>;
+  declare applicantId: ForeignKey<Applicant['applicantId']>;
+
+  declare title: string;
+  declare description: string;
+  declare requirements: string;
+  declare applicationFormLink: string;
+  declare companyLogo: string;
+  declare applicationDeadline: Date | string;
+  declare startDate: Date | string;
+  declare endDate: Date | string;
 }
 
 Job.init(
   {
-    JobID: {
+    jobId: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4, // Or DataTypes.UUIDV1
       primaryKey: true,
     },
-    Title: {
+    title: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Description: {
+    description: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Requirements: {
+    requirements: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    ApplicationFormLink: {
+    applicationFormLink: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    CompanyLogo: {
+    companyLogo: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    ApplicationDeadline: {
+    applicationDeadline: {
       type: DataTypes.DATE,
       allowNull: false,
     },
-    StartDate: {
+    startDate: {
       type: DataTypes.DATE,
       allowNull: false,
     },
-    EndDate: {
+    endDate: {
       type: DataTypes.DATE,
       allowNull: false,
     },

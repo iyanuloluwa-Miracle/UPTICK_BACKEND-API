@@ -8,43 +8,43 @@ import {
 import sequelize from "../config/database";
 
 export interface AdminUserAttributes {
-  UserID?: string;
-  Username: string;
-  Password: string;
-  Role: string;
+  userId?: string;
+  username: string;
+  password: string;
+  role: string;
 }
 
 class AdminUser
   extends Model<InferAttributes<AdminUser>, InferCreationAttributes<AdminUser>>
   implements AdminUserAttributes
 {
-  declare UserID: CreationOptional<string>;
-  declare Username: string;
-  declare Password: string;
-  declare Role: string;
+  declare userId: CreationOptional<string>;
+  declare username: string;
+  declare password: string;
+  declare role: string;
 }
 
 AdminUser.init(
   {
-    UserID: {
+    userId: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4, // Or DataTypes.UUIDV1
       primaryKey: true,
     },
-    Username: {
+    username: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Password: {
+    password: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Role: {
+    role: {
       type: DataTypes.STRING,
       allowNull: false,
     },
   },
-  { sequelize, modelName: "AdminUser" },
+  { sequelize, modelName: "adminUser" },
 );
 
 export default AdminUser;

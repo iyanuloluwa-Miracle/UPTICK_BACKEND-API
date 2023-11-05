@@ -8,11 +8,11 @@ import ContactUsRequest from "./contactUsRequest";
 
 const setupAssociations = () => {
   // Many-to-One relationships
-  Applicant.belongsTo(Program, { as: "program", foreignKey: "ProgramId" });
-  Program.hasMany(Applicant, { as: "applicants", foreignKey: "ProgramId" });
+  Applicant.belongsTo(Program, { as: "program", foreignKey: "programId" });
+  Program.hasMany(Applicant, { as: "applicants", foreignKey: "applicantId" });
 
-  Applicant.belongsTo(Job, { as: "job", foreignKey: "JobId" });
-  Job.hasMany(Applicant, { as: "applicants", foreignKey: "JobId" });
+  Applicant.belongsTo(Job, { as: "job", foreignKey: "jobId" });
+  Job.hasMany(Applicant, { as: "applicants", foreignKey: "applicantId" });
 
   // Many-to-Many relationship
   BlogPost.belongsToMany(Tag, { as: "tags", through: "BlogPostTags" });

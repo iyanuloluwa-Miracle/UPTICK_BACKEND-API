@@ -8,12 +8,12 @@ import {
 import sequelize from "../config/database";
 
 export interface ContactUsRequestAttributes {
-  RequestID?: string;
-  Name: string;
-  Email: string;
-  Phone: string;
-  Message: string;
-  DateSubmitted: Date | string;
+  requestId?: string;
+  name: string;
+  email: string;
+  phone: string;
+  message: string;
+  dateSubmitted: Date | string;
 }
 
 class ContactUsRequest
@@ -23,38 +23,38 @@ class ContactUsRequest
   >
   implements ContactUsRequestAttributes
 {
-  declare RequestID: CreationOptional<string>;
-  declare Name: string;
-  declare Email: string;
-  declare Phone: string;
-  declare Message: string;
-  declare DateSubmitted: Date | string;
+  declare requestId: CreationOptional<string>;
+  declare name: string;
+  declare email: string;
+  declare phone: string;
+  declare message: string;
+  declare dateSubmitted: Date | string;
 }
 
 ContactUsRequest.init(
   {
-    RequestID: {
+    requestId: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4, // Or DataTypes.UUIDV1
       primaryKey: true,
     },
-    Name: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Email: {
+    email: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Phone: {
+    phone: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    Message: {
+    message: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    DateSubmitted: {
+    dateSubmitted: {
       type: DataTypes.DATE,
       allowNull: false,
     },

@@ -4,11 +4,16 @@ import {
   InferAttributes,
   InferCreationAttributes,
   CreationOptional,
+  ForeignKey,
 } from "sequelize";
 import sequelize from "../config/database";
+import { Program, Job } from ".";
+
 
 export interface ApplicantAttributes {
-  applicantID?: string;
+  applicantId?: string;
+  programId?: ForeignKey<Program['programId']>
+  jobId?: ForeignKey<Job['jobId']>
   firstName: string;
   lastName: string;
   email: string;
@@ -23,7 +28,12 @@ class Applicant
   extends Model<InferAttributes<Applicant>, InferCreationAttributes<Applicant>>
   implements ApplicantAttributes
 {
-  declare applicantID: CreationOptional<string>;
+  // omit during model creation
+  declare applicantId: CreationOptional<string>;
+
+  declare programId: ForeignKey<Program['programId']>;
+  declare jobId: ForeignKey<Job['jobId']>;
+
   declare firstName: string;
   declare lastName: string;
   declare email: string;
@@ -36,7 +46,7 @@ class Applicant
 
 Applicant.init(
   {
-    applicantID: {
+    applicantId: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4, // Or DataTypes.UUIDV1
       primaryKey: true,
