@@ -207,29 +207,33 @@ class ProgramController {
   // endpoint to get the list of all applicants for a program
   static async listApplicants(req: Request, res: Response): Promise<void> {
     try {
-      const programId = req.params.id;  // assuming your route parameter is named 'id'
+      const programId = req.params.id; // assuming your route parameter is named 'id'
 
       // Validate programId
       if (!programId) {
-        res.status(400).send({ error: 'Program ID is required' });
+        res.status(400).send({ error: "Program ID is required" });
         return;
       }
 
       // Fetching applicants based on program ID
       const applicants = await Applicant.findAll({
         where: { programId },
-        include: [{
-          model: Program,
-          as: 'program',  // as per your association definition
-          attributes: ['name', 'description']  // adjust attributes to your needs
-        }]
+        include: [
+          {
+            model: Program,
+            as: "program", // as per your association definition
+            attributes: ["name", "description"], // adjust attributes to your needs
+          },
+        ],
       });
 
       // Sending response
       res.status(200).json(applicants);
     } catch (error) {
-      console.error(error);  // Log error (implement using a logging library later)
-      res.status(500).send({ error: 'An error occurred while fetching applicants' });
+      console.error(error); // Log error (implement using a logging library later)
+      res
+        .status(500)
+        .send({ error: "An error occurred while fetching applicants" });
     }
   }
 }
