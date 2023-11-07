@@ -4,11 +4,11 @@ import ApplicantController from "../controllers/applicantController";
 const router: Router = express.Router();
 
 router
-  .route("/apply-program/:programId")
+  .route("/:programId/apply-program")
   .post(ApplicantController.createApplication);
 
 router
-  .route("/apply-job/:jobId")
+  .route("/:jobId/apply-job")
   .post(ApplicantController.applyForJob);
 
 export default router;

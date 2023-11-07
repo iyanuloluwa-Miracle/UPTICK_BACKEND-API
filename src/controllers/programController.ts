@@ -80,6 +80,7 @@ class ProgramController {
       // Find the program
       const program = await Program.findOne({
         where: { programId: id },
+        attributes: { exclude: ["createdAt", "updatedAt"] }, // Exclude createdAt and updatedAt from the response
       });
 
       if (program) {
@@ -119,6 +120,7 @@ class ProgramController {
       const programs = await Program.findAll({
         ...paginationOptions,
         order: [["startDate", "ASC"]], // Order programs by startDate
+        attributes: { exclude: ["createdAt", "updatedAt"] }, // Exclude createdAt and updatedAt from the response
       });
 
       // Send success response
@@ -218,13 +220,9 @@ class ProgramController {
       // Fetching applicants based on program ID
       const applicants = await Applicant.findAll({
         where: { programId },
-        include: [
-          {
-            model: Program,
-            as: "program", // as per your association definition
-            attributes: ["name", "description"], // adjust attributes to your needs
-          },
-        ],
+        attributes: {
+          exclude: ["programId", "jobId", "createdAt", "updatedAt"],
+        },
       });
 
       // Sending response

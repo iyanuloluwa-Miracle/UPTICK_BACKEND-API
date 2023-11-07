@@ -21,7 +21,6 @@ class JobController {
   static async createJob(req: Request, res: Response): Promise<void> {
     try {
       const {
-        applicantId,
         title,
         description,
         requirements,
@@ -34,7 +33,6 @@ class JobController {
 
       // Create new Job
       const newJob = await Job.create({
-        applicantId,
         title,
         description,
         requirements,
@@ -59,7 +57,7 @@ class JobController {
   static async getJob(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
-      const job = await Job.findOne({ where: { jobId: id } });
+      const job = await Job.findOne({ where: { jobId: id }, attributes: { exclude: ["createdAt", "updatedAt"] } });
       if (job) {
         res.status(200).json(job);
         return;
@@ -82,6 +80,7 @@ class JobController {
       const jobs = await Job.findAll({
         ...paginationOptions,
         order: [["startDate", "ASC"]],
+        attributes: { exclude: ["createdAt", "updatedAt"] },
       });
       res.status(200).json(jobs);
     } catch (error) {
@@ -143,13 +142,9 @@ class JobController {
       }
       const applicants = await Applicant.findAll({
         where: { jobId },
-        include: [
-          {
-            model: Job,
-            as: "job",
-            attributes: ["title", "description"],
-          },
-        ],
+        attributes: {
+          exclude: ["programId", "jobId", "createdAt", "updatedAt"],
+        },
       });
       res.status(200).json(applicants);
     } catch (error) {

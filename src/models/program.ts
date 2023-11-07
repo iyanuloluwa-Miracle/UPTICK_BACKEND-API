@@ -4,14 +4,11 @@ import {
   InferAttributes,
   InferCreationAttributes,
   CreationOptional,
-  ForeignKey,
 } from "sequelize";
 import sequelize from "../config/database";
-import { Applicant } from ".";
 
 export interface ProgramAttributes {
   programId?: string;
-  applicantId: ForeignKey<Applicant["applicantId"]>;
   name: string;
   description: string;
   type: string;
@@ -31,7 +28,6 @@ class Program
   implements ProgramAttributes
 {
   declare programId: CreationOptional<string>;
-  declare applicantId: ForeignKey<Applicant["applicantId"]>;
   declare name: string;
   declare description: string;
   declare type: string;
