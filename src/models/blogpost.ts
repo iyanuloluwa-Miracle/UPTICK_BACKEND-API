@@ -1,11 +1,14 @@
 import {
-  Model,
+  BelongsToManyAddAssociationsMixin,
+  BelongsToManyRemoveAssociationsMixin,
+  CreationOptional,
   DataTypes,
   InferAttributes,
   InferCreationAttributes,
-  CreationOptional,
+  Model,
 } from "sequelize";
 import sequelize from "../config/database";
+import type Tag from "./tag";
 
 export interface BlogPostAttributes {
   postId?: string;
@@ -13,8 +16,8 @@ export interface BlogPostAttributes {
   content: string;
   author: string;
   publicationDate: Date | string;
-  tags: string[];
   imageUrl: string;
+  tags?: Tag[];
 }
 
 class BlogPost
@@ -26,8 +29,11 @@ class BlogPost
   declare content: string;
   declare author: string;
   declare publicationDate: Date | string;
-  declare tags: string[];
   declare imageUrl: string;
+  declare tags?: Tag[];
+
+  declare addTags: BelongsToManyAddAssociationsMixin<Tag, string>;
+  declare removeTags: BelongsToManyRemoveAssociationsMixin<Tag, string>;
 }
 
 BlogPost.init(
@@ -53,16 +59,12 @@ BlogPost.init(
       type: DataTypes.DATE,
       allowNull: false,
     },
-    tags: {
-      type: DataTypes.ARRAY(DataTypes.STRING),
-      allowNull: false,
-    },
     imageUrl: {
       type: DataTypes.STRING,
       allowNull: false,
     },
   },
-  { sequelize, modelName: "blogPost" },
+  { sequelize, modelName: "blogPost" }
 );
 
 export default BlogPost;
