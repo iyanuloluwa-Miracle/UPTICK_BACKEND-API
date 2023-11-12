@@ -12,7 +12,7 @@ export interface ProgramAttributes {
   name: string;
   description: string;
   type: string;
-  curriculumOutline: string;
+  curriculumOutline: string[];
   objectives: string;
   benefits: string;
   prerequisites: string;
@@ -31,7 +31,7 @@ class Program
   declare name: string;
   declare description: string;
   declare type: string;
-  declare curriculumOutline: string;
+  declare curriculumOutline: string[]; 
   declare objectives: string;
   declare benefits: string;
   declare prerequisites: string;
@@ -62,7 +62,7 @@ Program.init(
       allowNull: false,
     },
     curriculumOutline: {
-      type: DataTypes.STRING,
+      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
     },
     objectives: {

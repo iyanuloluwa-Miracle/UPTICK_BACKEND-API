@@ -9,7 +9,7 @@ interface ProgramUpdateAttributes {
   name?: string;
   description?: string;
   type?: string;
-  curriculumOutline?: string;
+  curriculumOutline?: string[];
   objectives?: string;
   benefits?: string;
   prerequisites?: string;
@@ -107,7 +107,7 @@ class ProgramController {
   static async getPrograms(req: Request, res: Response): Promise<void> {
     try {
       // Get the page and limit query parameters
-      const { page, limit } = req.query;
+      const { page, limit, type } = req.query;
 
       // Convert page and limit to numbers, if they are provided
       const pageNumber = page ? parseInt(page as string, 10) : undefined;
@@ -117,11 +117,18 @@ class ProgramController {
       const paginationOptions = getPaginationOptions(pageNumber, limitNumber);
 
       // Fetch all Programs
-      const programs = await Program.findAll({
+      const queryOptions: any = {
         ...paginationOptions,
-        order: [["startDate", "ASC"]], // Order programs by startDate
-        attributes: { exclude: ["createdAt", "updatedAt"] }, // Exclude createdAt and updatedAt from the response
-      });
+        order: [['startDate', 'ASC']], // Order programs by startDate
+        attributes: { exclude: ['createdAt', 'updatedAt'] }, // Exclude createdAt and updatedAt from the response
+      };
+
+      // If a type is provided, add it to the query options
+      if (type) {
+        queryOptions.where = { type };
+      }
+
+      const programs = await Program.findAll(queryOptions);
 
       // Send success response
       res.status(200).json(programs);
