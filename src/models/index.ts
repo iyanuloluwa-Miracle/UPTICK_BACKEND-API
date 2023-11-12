@@ -4,6 +4,8 @@ import Program from "./program";
 import BlogPost from "./blogpost";
 import Tag from "./tag";
 import AdminUser from "./adminUser";
+
+import Contact from "./contact.model";
 import ContactUsRequest from "./contactUsRequest";
 import { DataTypes } from "sequelize";
 
@@ -26,4 +28,4 @@ const setupAssociations = () => {
 // Call the function to setup associations
 setupAssociations();
 
-export { Applicant, Job, Program, BlogPost, Tag, AdminUser, ContactUsRequest };
+export { Applicant, Job, Program, BlogPost, Tag, AdminUser, ContactUsRequest, Contact };

@@ -3,6 +3,8 @@ import mailRoute from "./mail.route";
 import applicantRoute from "./applicant.route";
 import programRoute from "./program.route";
 import jobRoute from "./job.route";
+import contactRoute from "./contact.route";
+
 
 const router: Router = express.Router();
 
@@ -28,6 +30,11 @@ const defaultRoutes: DefaultRoute[] = [
     path: "/jobs",
     route: jobRoute,
   },
+  {
+    path: "/contact",
+    route: contactRoute,
+  },
+ 
 ];
 
 defaultRoutes.forEach((val) => {
