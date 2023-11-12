@@ -12,15 +12,20 @@ import { Program, Job } from ".";
 export interface ApplicantAttributes {
   applicantId?: string;
   programId?: ForeignKey<Program["programId"]>;
-  jobId?: ForeignKey<Job["jobId"]>;
+  // jobId?: ForeignKey<Job["jobId"]>;
   firstName: string;
   lastName: string;
-  email: string;
   phone: string;
-  address: string;
-  resumeFile: string;
-  applicationDate: Date | string;
-  status: string;
+  cityState?: string;
+  yearsOfExperience?: string;
+  stack?: string;
+  technology?: string;
+  careerGoals?: string;
+  githubLink?: string;
+  portfolioLink?: string;
+  commitment?: string;
+  howDidYouHearAboutUs?: string;
+  status?: string;
 }
 
 class Applicant
@@ -31,16 +36,21 @@ class Applicant
   declare applicantId: CreationOptional<string>;
 
   declare programId: ForeignKey<Program["programId"]>;
-  declare jobId: ForeignKey<Job["jobId"]>;
+  // declare jobId: ForeignKey<Job["jobId"]>;
 
   declare firstName: string;
   declare lastName: string;
-  declare email: string;
   declare phone: string;
-  declare address: string;
-  declare resumeFile: string;
-  declare applicationDate: Date | string;
-  declare status: string;
+  declare cityState?: string;
+  declare yearsOfExperience?: string;
+  declare stack?: string;
+  declare technology?: string;
+  declare careerGoals?: string;
+  declare githubLink?: string;
+  declare portfolioLink?: string;
+  declare commitment?: string;
+  declare howDidYouHearAboutUs?: string;
+  declare status?: string;
 }
 
 Applicant.init(
@@ -58,31 +68,50 @@ Applicant.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    email: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     phone: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    address: {
+    cityState: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
-    resumeFile: {
+    yearsOfExperience: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
-    // programPreferenceID: DataTypes.INTEGER,
-    // jobAppliedForID: DataTypes.INTEGER,
-    applicationDate: {
-      type: DataTypes.DATE,
-      allowNull: false,
+    stack: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    technology: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    careerGoals: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    githubLink: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    portfolioLink: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    commitment: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    howDidYouHearAboutUs: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
     status: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
+      defaultValue: "pending",
     },
   },
   { sequelize, modelName: "applicant" },

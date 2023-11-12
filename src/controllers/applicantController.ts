@@ -12,34 +12,31 @@ class ApplicantController {
       const {
         firstName,
         lastName,
-        email,
         phone,
-        address,
-        resumeFile,
-        // No need to destructure applicationDate and status as they can be set by default
+        cityState,
+        yearsOfExperience,
+        stack,
+        technology,
+        careerGoals,
+        githubLink,
+        portfolioLink,
+        commitment,
+        howDidYouHearAboutUs,
       } = req.body as Omit<
         ApplicantAttributes,
-        "applicantId" | "programId" | "jobId" | "applicationDate" | "status"
+        "applicantId" | "programId" | "status"
       >;
 
       // Validate programId and other necessary fields
-      if (!programId || !firstName || !lastName || !email) {
+      if (!programId || !firstName || !lastName ) {
         res.status(400).json({ message: "Required fields are missing" });
         return;
       }
 
+      // map through the req.body and check if any of the values are empty
+
       // Create new applicant
-      const newApplicant = await Applicant.create({
-        programId,
-        firstName,
-        lastName,
-        email,
-        phone,
-        address,
-        resumeFile,
-        applicationDate: new Date(), // Set applicationDate to current date
-        status: "Pending", // Set status to Pending by default
-      });
+      const newApplicant = await Applicant.create();
 
       // Send success response
       res.status(201).json({
@@ -67,10 +64,10 @@ class ApplicantController {
       const {
         firstName,
         lastName,
-        email,
+        // email,
         phone,
-        address,
-        resumeFile,
+        // address,
+        // resumeFile,
         // No need to destructure applicationDate and status as they can be set by default
       } = req.body as Omit<
         ApplicantAttributes,
@@ -78,21 +75,21 @@ class ApplicantController {
       >;
 
       // Validate jobId and other necessary fields
-      if (!jobId || !firstName || !lastName || !email) {
+      if (!jobId || !firstName || !lastName) {
         res.status(400).json({ message: "Required fields are missing" });
         return;
       }
 
       // Create new applicant
       const newApplicant = await Applicant.create({
-        jobId,
+        // jobId,
         firstName,
         lastName,
-        email,
+        // email,
         phone,
-        address,
-        resumeFile,
-        applicationDate: new Date(), // Set applicationDate to current date
+        // address,
+        // resumeFile,
+        // applicationDate: new Date(), // Set applicationDate to current date
         status: "Pending", // Set status to Pending by default
       });
 
