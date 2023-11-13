@@ -21,7 +21,7 @@ const setupAssociations = () => {
     keyType: DataTypes.UUID,
   });
 
-  Job.hasMany(JobApplicant);
+  Job.hasMany(JobApplicant, { as: "applicants", foreignKey: "jobId" });
   JobApplicant.belongsTo(Job, { as: "job", foreignKey: "jobId" });
 
   // Many-to-Many relationship
