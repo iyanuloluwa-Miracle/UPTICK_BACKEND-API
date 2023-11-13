@@ -6,7 +6,7 @@ import { getPaginationOptions } from "../utils/helper";
 export default class BlogPostController {
   static async listPosts(req: Request, res: Response) {
     try {
-      const search = (req.query.search || "") as string;
+      const search = `%${req.query.search || ""}%`;
       const page = req.query.page ? parseInt(req.query.page as string, 10) : 1;
       const limit = req.query.limit
         ? parseInt(req.query.limit as string, 10)
@@ -34,12 +34,12 @@ export default class BlogPostController {
           [Op.or]: [
             {
               title: {
-                [Op.substring]: search,
+                [Op.iLike]: search,
               },
             },
             {
               content: {
-                [Op.substring]: search,
+                [Op.iLike]: search,
               },
             },
           ],
