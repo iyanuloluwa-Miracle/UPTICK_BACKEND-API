@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Job, Applicant } from "../models";
+import { Job } from "../models";
 import { JobAttributes } from "../models/job";
 import { getPaginationOptions } from "../utils/helper";
 
@@ -129,29 +129,6 @@ class JobController {
       res
         .status(500)
         .json({ message: "An error occurred while updating the job" });
-    }
-  }
-
-  // endpoint to get the list of all applicants for a job
-  static async listApplicants(req: Request, res: Response): Promise<void> {
-    try {
-      const jobId = req.params.id;
-      if (!jobId) {
-        res.status(400).send({ error: "Job ID is required" });
-        return;
-      }
-      const applicants = await Applicant.findAll({
-        where: { jobId },
-        attributes: {
-          exclude: ["programId", "jobId", "createdAt", "updatedAt"],
-        },
-      });
-      res.status(200).json(applicants);
-    } catch (error) {
-      console.error(error);
-      res
-        .status(500)
-        .send({ error: "An error occurred while fetching applicants" });
     }
   }
 }
