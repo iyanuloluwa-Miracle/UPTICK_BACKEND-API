@@ -82,13 +82,11 @@ class JobApplicantController {
         totalPages: Math.ceil(count / limit),
       };
 
-      res
-        .status(200)
-        .json({
-          message: "Applicants successfully fetched.",
-          data: rows,
-          paging,
-        });
+      res.status(200).json({
+        message: "Applicants successfully fetched.",
+        data: rows,
+        paging,
+      });
     } catch (error) {
       console.error(error);
 

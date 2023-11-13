@@ -99,7 +99,7 @@ JobApplicant.init(
     otherUrl: DataTypes.STRING,
     additionalInfo: DataTypes.STRING(500),
   },
-  { sequelize, modelName: "jobApplicant" }
+  { sequelize, modelName: "jobApplicant" },
 );
 
 export default JobApplicant;

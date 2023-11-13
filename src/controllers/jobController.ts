@@ -57,7 +57,10 @@ class JobController {
   static async getJob(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
-      const job = await Job.findOne({ where: { jobId: id }, attributes: { exclude: ["createdAt", "updatedAt"] } });
+      const job = await Job.findOne({
+        where: { jobId: id },
+        attributes: { exclude: ["createdAt", "updatedAt"] },
+      });
       if (job) {
         res.status(200).json(job);
         return;
