@@ -7,8 +7,6 @@ import Job from "./job";
 import Program from "./program";
 import Tag from "./tag";
 
-import Contact from "./contact.model";
-
 const setupAssociations = () => {
   // Many-to-One relationships
   Applicant.belongsTo(Program, {
@@ -48,7 +46,6 @@ export {
   AdminUser,
   Applicant,
   BlogPost,
-  Contact,
   ContactUsRequest,
   Job,
   Program,
