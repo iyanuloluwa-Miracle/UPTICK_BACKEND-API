@@ -1,7 +1,6 @@
 import express, { Router } from "express";
 import applicantRoute from "./applicant.route";
 import blogpostRoute from "./blogpost.route";
-import contactRoute from "./contact.route";
 import jobRoute from "./job.route";
 import mailRoute from "./mail.route";
 import programRoute from "./program.route";
@@ -38,10 +37,6 @@ const defaultRoutes: DefaultRoute[] = [
   {
     path: "/tags",
     route: tagRoute,
-  },
-  {
-    path: "/contact",
-    route: contactRoute,
   },
 ];
 

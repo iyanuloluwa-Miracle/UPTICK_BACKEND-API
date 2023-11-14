@@ -42,12 +42,4 @@ const setupAssociations = () => {
 // Call the function to setup associations
 setupAssociations();
 
-export {
-  AdminUser,
-  Applicant,
-  BlogPost,
-  ContactUsRequest,
-  Job,
-  Program,
-  Tag,
-};
+export { Applicant, Job, Program, BlogPost, Tag, AdminUser, ContactUsRequest, };
