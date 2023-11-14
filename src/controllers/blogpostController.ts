@@ -184,15 +184,19 @@ export default class BlogPostController {
         return;
       }
 
-      const tagsToAdd = await Tag.findAll({
-        where: {
-          name: {
-            [Op.in]: tags,
-          },
-        },
-      });
-
-      await post.addTags(tagsToAdd);
+      try {
+        await post.addTags(tags);
+      } catch (err) {
+        const error = err as any;
+        if (error.name === "SequelizeForeignKeyConstraintError") {
+          res
+            .status(400)
+            .json({
+              message: `There was an attempt to add a non-existent tag to blog post`,
+            });
+          return;
+        } else throw error;
+      }
 
       res.json({ message: "Tags added to post successfully" });
     } catch (error) {
@@ -215,15 +219,7 @@ export default class BlogPostController {
         return;
       }
 
-      const tagsToRemove = await Tag.findAll({
-        where: {
-          name: {
-            [Op.in]: tags,
-          },
-        },
-      });
-
-      await post.removeTags(tagsToRemove);
+      await post.removeTags(tags);
 
       res.json({ message: "Tags removed from post successfully" });
     } catch (error) {
