@@ -18,6 +18,10 @@ interface ProgramUpdateAttributes {
   enrollmentInformation?: string;
   startDate?: Date | string;
   endDate?: Date | string;
+  frontendTechStack?: string;
+  backendTechStack?: string;
+  mobileStack?: string;
+  otherFieldStack?: string;
 }
 
 class ProgramController {
@@ -38,6 +42,12 @@ class ProgramController {
         enrollmentInformation,
         startDate,
         endDate,
+        frontendTechStack,
+        backendTechStack,
+        mobileStack,
+        otherFieldStack
+
+
       } = req.body as ProgramAttributes;
 
       // Create new Program
@@ -54,6 +64,10 @@ class ProgramController {
         enrollmentInformation,
         startDate: new Date(startDate),
         endDate: new Date(endDate),
+        frontendTechStack,
+        backendTechStack,
+        mobileStack,
+        otherFieldStack
       });
 
       // Send success response

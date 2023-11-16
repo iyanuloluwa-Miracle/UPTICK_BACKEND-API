@@ -21,6 +21,10 @@ export interface ProgramAttributes {
   enrollmentInformation: string;
   startDate: Date | string;
   endDate: Date | string;
+  frontendTechStack?: string;
+  backendTechStack?: string;
+  mobileStack?: string;
+  otherFieldStack?: string;
 }
 
 class Program
@@ -40,13 +44,17 @@ class Program
   declare enrollmentInformation: string;
   declare startDate: Date | string;
   declare endDate: Date | string;
+  declare frontendTechStack?: string;
+  declare backendTechStack?: string;
+  declare mobileStack?: string;
+  declare otherFieldStack?: string;
 }
 
 Program.init(
   {
     programId: {
       type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4, // Or DataTypes.UUIDV1
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
     name: {
@@ -96,6 +104,22 @@ Program.init(
     endDate: {
       type: DataTypes.DATE,
       allowNull: false,
+    },
+    frontendTechStack: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    backendTechStack: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    mobileStack: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    otherFieldStack: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
   },
   { sequelize, modelName: "program" },
