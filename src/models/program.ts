@@ -23,7 +23,7 @@ export interface ProgramAttributes {
   endDate: Date | string;
   frontendTechStack?: string;
   backendTechStack?: string;
-  mobileStack?: string;
+  mobileTechStack?: string;
   otherFieldStack?: string;
 }
 
@@ -46,7 +46,7 @@ class Program
   declare endDate: Date | string;
   declare frontendTechStack?: string;
   declare backendTechStack?: string;
-  declare mobileStack?: string;
+  declare mobileTechStack?: string;
   declare otherFieldStack?: string;
 }
 
@@ -113,7 +113,7 @@ Program.init(
       type: DataTypes.STRING,
       allowNull: true,
     },
-    mobileStack: {
+    mobileTechStack: {
       type: DataTypes.STRING,
       allowNull: true,
     },

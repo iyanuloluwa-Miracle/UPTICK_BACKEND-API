@@ -20,7 +20,7 @@ interface ProgramUpdateAttributes {
   endDate?: Date | string;
   frontendTechStack?: string;
   backendTechStack?: string;
-  mobileStack?: string;
+  mobileTechStack?: string;
   otherFieldStack?: string;
 }
 
@@ -44,7 +44,7 @@ class ProgramController {
         endDate,
         frontendTechStack,
         backendTechStack,
-        mobileStack,
+        mobileTechStack,
         otherFieldStack
 
 
@@ -66,7 +66,7 @@ class ProgramController {
         endDate: new Date(endDate),
         frontendTechStack,
         backendTechStack,
-        mobileStack,
+        mobileTechStack,
         otherFieldStack
       });
 
