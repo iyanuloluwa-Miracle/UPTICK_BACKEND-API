@@ -7,12 +7,11 @@ import {
   ForeignKey,
 } from "sequelize";
 import sequelize from "../config/database";
-import { Program, Job } from ".";
+import { Program } from ".";
 
-export interface ApplicantAttributes {
-  applicantId?: string;
+export interface ProgramApplicantAttributes {
+  programApplicantId?: string;
   programId?: ForeignKey<Program["programId"]>;
-  // jobId?: ForeignKey<Job["jobId"]>;
   firstName: string;
   lastName: string;
   phone: string;
@@ -28,15 +27,16 @@ export interface ApplicantAttributes {
   status?: string;
 }
 
-class Applicant
-  extends Model<InferAttributes<Applicant>, InferCreationAttributes<Applicant>>
-  implements ApplicantAttributes
+class ProgramApplicant
+  extends Model<
+    InferAttributes<ProgramApplicant>,
+    InferCreationAttributes<ProgramApplicant>
+  >
+  implements ProgramApplicantAttributes
 {
   // omit during model creation
-  declare applicantId: CreationOptional<string>;
-
+  declare programApplicantId: CreationOptional<string>;
   declare programId: ForeignKey<Program["programId"]>;
-  // declare jobId: ForeignKey<Job["jobId"]>;
 
   declare firstName: string;
   declare lastName: string;
@@ -53,9 +53,9 @@ class Applicant
   declare status?: string;
 }
 
-Applicant.init(
+ProgramApplicant.init(
   {
-    applicantId: {
+    programApplicantId: {
       type: DataTypes.UUID,
       defaultValue: DataTypes.UUIDV4, // Or DataTypes.UUIDV1
       primaryKey: true,
@@ -114,7 +114,7 @@ Applicant.init(
       defaultValue: "pending",
     },
   },
-  { sequelize, modelName: "applicant" },
+  { sequelize, modelName: "programApplicant" },
 );
 
-export default Applicant;
+export default ProgramApplicant;

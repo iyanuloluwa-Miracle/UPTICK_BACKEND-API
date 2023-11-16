@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Program, Applicant } from "../models";
+import { Program, ProgramApplicant } from "../models";
 import { ProgramAttributes } from "../models/program";
 import { getPaginationOptions } from "../utils/helper";
 
@@ -119,8 +119,8 @@ class ProgramController {
       // Fetch all Programs
       const queryOptions: any = {
         ...paginationOptions,
-        order: [['startDate', 'ASC']], // Order programs by startDate
-        attributes: { exclude: ['createdAt', 'updatedAt'] }, // Exclude createdAt and updatedAt from the response
+        order: [["startDate", "ASC"]], // Order programs by startDate
+        attributes: { exclude: ["createdAt", "updatedAt"] }, // Exclude createdAt and updatedAt from the response
       };
 
       // If a type is provided, add it to the query options
@@ -225,10 +225,10 @@ class ProgramController {
       }
 
       // Fetching applicants based on program ID
-      const applicants = await Applicant.findAll({
+      const applicants = await ProgramApplicant.findAll({
         where: { programId },
         attributes: {
-          exclude: ["programId", "jobId", "createdAt", "updatedAt"],
+          exclude: ["programId", "createdAt", "updatedAt"],
         },
       });
 

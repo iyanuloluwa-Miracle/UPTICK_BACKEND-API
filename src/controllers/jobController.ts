@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import { Job, Applicant } from "../models";
+import { Job, JobApplicant } from "../models";
 import { JobAttributes } from "../models/job";
 import { getPaginationOptions } from "../utils/helper";
 
@@ -57,7 +57,10 @@ class JobController {
   static async getJob(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
-      const job = await Job.findOne({ where: { jobId: id }, attributes: { exclude: ["createdAt", "updatedAt"] } });
+      const job = await Job.findOne({
+        where: { jobId: id },
+        attributes: { exclude: ["createdAt", "updatedAt"] },
+      });
       if (job) {
         res.status(200).json(job);
         return;
@@ -140,10 +143,10 @@ class JobController {
         res.status(400).send({ error: "Job ID is required" });
         return;
       }
-      const applicants = await Applicant.findAll({
+      const applicants = await JobApplicant.findAll({
         where: { jobId },
         attributes: {
-          exclude: ["programId", "jobId", "createdAt", "updatedAt"],
+          exclude: ["jobId", "createdAt", "updatedAt"],
         },
       });
       res.status(200).json(applicants);

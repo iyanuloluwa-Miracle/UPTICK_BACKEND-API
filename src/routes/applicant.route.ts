@@ -7,8 +7,6 @@ router
   .route("/:programId/apply-program")
   .post(ApplicantController.createApplication);
 
-router
-  .route("/:jobId/apply-job")
-  .post(ApplicantController.applyForJob);
+router.route("/:jobId/apply-job").post(ApplicantController.applyForJob);
 
 export default router;

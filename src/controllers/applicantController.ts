@@ -1,6 +1,7 @@
 import { Request, Response } from "express";
-import { Applicant } from "../models";
-import { ApplicantAttributes } from "../models/applicant";
+import { ProgramApplicant, JobApplicant } from "../models";
+import { ProgramApplicantAttributes } from "../models/programApplicant";
+import { JobApplicantAttributes } from "../models/jobApplicant";
 
 class ApplicantController {
   static async createApplication(req: Request, res: Response): Promise<void> {
@@ -9,34 +10,22 @@ class ApplicantController {
       const { programId } = req.params;
 
       // Destructure applicant details from req.body
-      const {
-        firstName,
-        lastName,
-        phone,
-        cityState,
-        yearsOfExperience,
-        stack,
-        technology,
-        careerGoals,
-        githubLink,
-        portfolioLink,
-        commitment,
-        howDidYouHearAboutUs,
-      } = req.body as Omit<
-        ApplicantAttributes,
-        "applicantId" | "programId" | "status"
+      const applicant = req.body as Omit<
+        ProgramApplicantAttributes,
+        "programApplicantId" | "programId" | "status"
       >;
 
       // Validate programId and other necessary fields
-      if (!programId || !firstName || !lastName ) {
+      if (!programId || !applicant.firstName || !applicant.lastName) {
         res.status(400).json({ message: "Required fields are missing" });
         return;
       }
 
-      // map through the req.body and check if any of the values are empty
-
       // Create new applicant
-      const newApplicant = await Applicant.create();
+      const newApplicant = await ProgramApplicant.create({
+        ...applicant,
+        programId,
+      });
 
       // Send success response
       res.status(201).json({
@@ -61,36 +50,27 @@ class ApplicantController {
       const { jobId } = req.params;
 
       // Destructure applicant details from req.body
-      const {
-        firstName,
-        lastName,
-        // email,
-        phone,
-        // address,
-        // resumeFile,
-        // No need to destructure applicationDate and status as they can be set by default
-      } = req.body as Omit<
-        ApplicantAttributes,
-        "applicantId" | "programId" | "jobId" | "applicationDate" | "status"
+      const jobApplicant = req.body as Omit<
+        JobApplicantAttributes,
+        "jobApplicantId" | "jobId" | "status"
       >;
 
       // Validate jobId and other necessary fields
-      if (!jobId || !firstName || !lastName) {
+      if (
+        !jobId ||
+        !jobApplicant.fullName ||
+        !jobApplicant.email ||
+        !jobApplicant.phone ||
+        !jobApplicant.resume
+      ) {
         res.status(400).json({ message: "Required fields are missing" });
         return;
       }
 
       // Create new applicant
-      const newApplicant = await Applicant.create({
-        // jobId,
-        firstName,
-        lastName,
-        // email,
-        phone,
-        // address,
-        // resumeFile,
-        // applicationDate: new Date(), // Set applicationDate to current date
-        status: "Pending", // Set status to Pending by default
+      const newApplicant = await JobApplicant.create({
+        ...jobApplicant,
+        jobId,
       });
 
       // Send success response

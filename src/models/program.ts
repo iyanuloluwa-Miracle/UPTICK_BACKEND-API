@@ -31,7 +31,7 @@ class Program
   declare name: string;
   declare description: string;
   declare type: string;
-  declare curriculumOutline: string[]; 
+  declare curriculumOutline: string[];
   declare objectives: string;
   declare benefits: string;
   declare prerequisites: string;

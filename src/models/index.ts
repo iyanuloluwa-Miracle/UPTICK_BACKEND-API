@@ -1,4 +1,5 @@
-import Applicant from "./applicant";
+import ProgramApplicant from "./programApplicant";
+import JobApplicant from "./jobApplicant";
 import Job from "./job";
 import Program from "./program";
 import BlogPost from "./blogpost";
@@ -9,11 +10,27 @@ import { DataTypes } from "sequelize";
 
 const setupAssociations = () => {
   // Many-to-One relationships
-  Applicant.belongsTo(Program, { as: "program", foreignKey: "programId", keyType: DataTypes.UUID });
-  Program.hasMany(Applicant, { as: "program", foreignKey: "programId",keyType: DataTypes.UUID });
+  ProgramApplicant.belongsTo(Program, {
+    as: "program",
+    foreignKey: "programId",
+    keyType: DataTypes.UUID,
+  });
+  Program.hasMany(ProgramApplicant, {
+    as: "program",
+    foreignKey: "programId",
+    keyType: DataTypes.UUID,
+  });
 
-  Applicant.belongsTo(Job, { as: "job", foreignKey:"jobId", keyType: DataTypes.UUID });
-  Job.hasMany(Applicant, { as: "job", foreignKey: "jobId", keyType: DataTypes.UUID });
+  JobApplicant.belongsTo(Job, {
+    as: "job",
+    foreignKey: "jobId",
+    keyType: DataTypes.UUID,
+  });
+  Job.hasMany(JobApplicant, {
+    as: "job",
+    foreignKey: "jobId",
+    keyType: DataTypes.UUID,
+  });
 
   // Many-to-Many relationship
   BlogPost.belongsToMany(Tag, {
@@ -26,4 +43,13 @@ const setupAssociations = () => {
 // Call the function to setup associations
 setupAssociations();
 
-export { Applicant, Job, Program, BlogPost, Tag, AdminUser, ContactUsRequest };
+export {
+  ProgramApplicant,
+  JobApplicant,
+  Job,
+  Program,
+  BlogPost,
+  Tag,
+  AdminUser,
+  ContactUsRequest,
+};
