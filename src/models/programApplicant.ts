@@ -25,6 +25,10 @@ export interface ProgramApplicantAttributes {
   commitment?: string;
   howDidYouHearAboutUs?: string;
   status?: string;
+  frontendTechStack?: string;
+  backendTechStack?: string;
+  mobileTechStack?: string;
+  otherFieldStack?: string;
 }
 
 class ProgramApplicant
@@ -51,13 +55,17 @@ class ProgramApplicant
   declare commitment?: string;
   declare howDidYouHearAboutUs?: string;
   declare status?: string;
+  declare frontendTechStack?: string;
+  declare backendTechStack?: string;
+  declare mobileTechStack?: string;
+  declare otherFieldStack?: string;
 }
 
 ProgramApplicant.init(
   {
     programApplicantId: {
       type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4, // Or DataTypes.UUIDV1
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
     firstName: {
@@ -112,6 +120,22 @@ ProgramApplicant.init(
       type: DataTypes.STRING,
       allowNull: true,
       defaultValue: "pending",
+    },
+    frontendTechStack: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    backendTechStack: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    mobileTechStack: {
+      type: DataTypes.STRING,
+      allowNull: true,
+    },
+    otherFieldStack: {
+      type: DataTypes.STRING,
+      allowNull: true,
     },
   },
   { sequelize, modelName: "programApplicant" },
