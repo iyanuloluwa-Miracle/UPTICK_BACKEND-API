@@ -64,7 +64,7 @@ BlogPost.init(
       allowNull: false,
     },
   },
-  { sequelize, modelName: "blogPost" }
+  { sequelize, modelName: "blogPost" },
 );
 
 export default BlogPost;

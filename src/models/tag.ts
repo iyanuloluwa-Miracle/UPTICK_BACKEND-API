@@ -27,7 +27,7 @@ Tag.init(
   {
     sequelize,
     modelName: "tag",
-  }
+  },
 );
 
 export default Tag;

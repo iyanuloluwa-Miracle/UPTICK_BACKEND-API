@@ -39,7 +39,7 @@ export default class TagController {
 
       const [updateCount, updatedTags] = await Tag.update(
         { name },
-        { where: { name: tagName }, returning: true }
+        { where: { name: tagName }, returning: true },
       );
 
       if (updateCount === 0) {

@@ -135,7 +135,7 @@ export default class BlogPostController {
           author,
           imageUrl,
         },
-        { where: { postId }, returning: true }
+        { where: { postId }, returning: true },
       );
 
       if (updatedCount === 0) {
@@ -189,11 +189,9 @@ export default class BlogPostController {
       } catch (err) {
         const error = err as any;
         if (error.name === "SequelizeForeignKeyConstraintError") {
-          res
-            .status(400)
-            .json({
-              message: `There was an attempt to add a non-existent tag to blog post`,
-            });
+          res.status(400).json({
+            message: `There was an attempt to add a non-existent tag to blog post`,
+          });
           return;
         } else throw error;
       }
