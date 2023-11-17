@@ -1,3 +1,5 @@
+// models/ContactFormSubmission.ts
+
 import {
   Model,
   DataTypes,
@@ -8,6 +10,7 @@ import {
 import sequelize from "../config/database";
 
 export interface ContactFormSubmissionAttributes {
+  id?: string; // Make 'id' optional
   name: string;
   email: string;
   phone: string;
@@ -21,6 +24,7 @@ class ContactFormSubmission
   >
   implements ContactFormSubmissionAttributes
 {
+  declare id: CreationOptional<string>;
   declare name: string;
   declare email: string;
   declare phone: string;
@@ -29,6 +33,11 @@ class ContactFormSubmission
 
 ContactFormSubmission.init(
   {
+    id: {
+      type: DataTypes.UUID,
+      defaultValue: DataTypes.UUIDV4,
+      primaryKey: true,
+    },
     name: {
       type: DataTypes.STRING,
       allowNull: false,
