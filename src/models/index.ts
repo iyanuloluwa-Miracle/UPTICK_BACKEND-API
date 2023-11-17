@@ -3,6 +3,7 @@ import JobApplicant from "./jobApplicant";
 import Job from "./job";
 import Program from "./program";
 import BlogPost from "./blogpost";
+import contact from "./ContactFormSubmission"
 import Tag from "./tag";
 import AdminUser from "./adminUser";
 import ContactUsRequest from "./contactUsRequest";
@@ -52,4 +53,5 @@ export {
   Tag,
   AdminUser,
   ContactUsRequest,
+  contact
 };
