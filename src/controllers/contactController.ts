@@ -1,7 +1,6 @@
 // controllers/ContactUsController.ts
 
 import { Request, Response } from "express";
-import {contact} from "../models"
 import ContactFormSubmission from "../models/ContactFormSubmission";
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
@@ -16,12 +15,14 @@ class ContactUsController {
 
       // Validate input (you may want to add more validation)
       if (!name || !email || !phone || !message) {
-        res.status(400).json({ error: "Name, email, phone, and message are required" });
+        res
+          .status(400)
+          .json({ error: "Name, email, phone, and message are required" });
         return;
       }
 
       // Save to database using Sequelize
-      await ContactFormSubmission.create({
+      const submission = await ContactFormSubmission.create({
         name,
         email,
         phone,
@@ -53,8 +54,16 @@ class ContactUsController {
 
         console.log("Email sent: " + info.response);
 
-        // Send success response
-        res.status(200).json({ message: "Form submitted successfully" });
+        // Send success response without id
+        res.status(200).json({
+          message: "Form submitted successfully",
+          submission: {
+            name: submission.name,
+            email: submission.email,
+            phone: submission.phone,
+            message: submission.message,
+          },
+        });
       });
     } catch (error) {
       console.error(error);
