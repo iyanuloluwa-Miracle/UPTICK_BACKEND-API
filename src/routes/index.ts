@@ -3,7 +3,7 @@ import mailRoute from "./mail.route";
 import applicantRoute from "./applicant.route";
 import programRoute from "./program.route";
 import jobRoute from "./job.route";
-import contactRoute from "./contactUsRoutes"
+import contactRoute from "./contact.routes"
 
 const router: Router = express.Router();
 

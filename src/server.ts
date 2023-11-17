@@ -4,6 +4,7 @@ import cors from "cors";
 import config from "./config/config";
 import route from "./routes/index";
 import sequelize from "./config/database";
+//import contact from "./routes/contact.routes"
 
 const app = express();
 

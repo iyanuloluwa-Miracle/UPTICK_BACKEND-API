@@ -8,6 +8,7 @@ import {
     CreationOptional,
   } from "sequelize";
   import sequelize from "../config/database";
+  import { contact } from ".";
   
   export interface ContactFormSubmissionAttributes {
     id: string;

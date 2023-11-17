@@ -1,6 +1,7 @@
 // controllers/ContactUsController.ts
 
 import { Request, Response } from "express";
+import {contact} from "../models"
 import ContactFormSubmission from "../models/ContactFormSubmission";
 import nodemailer from "nodemailer";
 import dotenv from "dotenv";
@@ -20,7 +21,7 @@ class ContactUsController {
       }
 
       // Save to database using Sequelize
-      const submission = await ContactFormSubmission.create({
+      await ContactFormSubmission.create({
         name,
         email,
         phone,
@@ -38,7 +39,7 @@ class ContactUsController {
 
       const mailOptions = {
         from: process.env.EMAIL_USER || "", // Using environment variables
-        to: "admin-email@example.com", // Replace with your admin email
+        to: "iyanudina@gmail.com", // Replace with your admin email
         subject: "New Contact Form Submission",
         text: `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\nMessage: ${message}`,
       };
