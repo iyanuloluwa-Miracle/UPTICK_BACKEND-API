@@ -15,6 +15,7 @@ export interface ProgramApplicantAttributes {
   firstName: string;
   lastName: string;
   phone: string;
+  email: string;
   cityState?: string;
   yearsOfExperience?: string;
   stack?: string;
@@ -46,6 +47,7 @@ class ProgramApplicant
   declare lastName: string;
   declare phone: string;
   declare cityState?: string;
+  declare email: string;
   declare yearsOfExperience?: string;
   declare stack?: string;
   declare technology?: string;
@@ -69,6 +71,10 @@ ProgramApplicant.init(
       primaryKey: true,
     },
     firstName: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    email: {
       type: DataTypes.STRING,
       allowNull: false,
     },
