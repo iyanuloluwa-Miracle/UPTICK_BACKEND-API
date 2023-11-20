@@ -3,10 +3,10 @@ import { Error, ValidationError } from "sequelize";
 import config from "../config/config";
 import { Job } from "../models";
 import JobApplicant, { JobApplicantAttributes } from "../models/jobApplicant";
-import { getPaginationOptions } from "../utils/helper";
-import StorageService from "../services/interfaces/storage";
 import FileStorageService from "../services/file-storage";
+import StorageService from "../services/interfaces/storage";
 import S3StorageService from "../services/s3-storage";
+import { getPaginationOptions } from "../utils/helper";
 
 const S3_BUCKET_NAME = config.s3.resumeBucket;
 
@@ -146,54 +146,6 @@ class JobApplicantController {
       res.status(500).json({
         message: "An error occurred while fetching the applicants",
       });
-    }
-  }
-
-  static async getJobApplicant(req: Request, res: Response): Promise<void> {
-    try {
-      const { applicantId } = req.params;
-      const applicant = await JobApplicant.findOne({
-        where: { applicantId },
-      });
-
-      if (!applicant) {
-        res.status(404).json({ message: "Applicant not found" });
-        return;
-      }
-
-      res.json(applicant);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Error retrieving applicant" });
-    }
-  }
-
-  static async updateJobApplicant(req: Request, res: Response): Promise<void> {
-    try {
-      const { applicantId } = req.params;
-      const updateData = req.body as JobApplicantAttributes;
-
-      const [updated] = await JobApplicant.update(updateData, {
-        where: { applicantId },
-      });
-
-      if (!updated) {
-        res
-          .status(404)
-          .json({ message: "Applicant not found or no changes made" });
-        return;
-      }
-
-      const updatedApplicant = await JobApplicant.findOne({
-        where: { applicantId },
-      });
-      res.json({
-        message: "Applicant updated successfully",
-        applicant: updatedApplicant,
-      });
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ message: "Error updating applicant" });
     }
   }
 }
