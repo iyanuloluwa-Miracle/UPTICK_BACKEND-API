@@ -1,14 +1,13 @@
 import express from "express";
-import bodyParser from "body-parser";
 import config from "./config/config";
-import route from "./routes/index";
 import sequelize from "./config/database";
+import route from "./routes/index";
 
 const app = express();
 
 // Body parser
-app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(express.json());
 // Your routes here
 app.use("/api", route);
 
