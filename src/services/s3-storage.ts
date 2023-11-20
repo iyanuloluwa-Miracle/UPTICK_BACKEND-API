@@ -11,7 +11,7 @@ export default class S3StorageService implements StorageService {
   private s3Client: S3Client;
 
   constructor(private readonly bucketName: string) {
-    this.s3Client = new S3Client({ region: "us-east-2" });
+    this.s3Client = new S3Client();
   }
 
   public async put(

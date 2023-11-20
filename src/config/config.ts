@@ -29,6 +29,9 @@ const config = {
     pass: process.env.MAIL_PASSWORD || "",
     contact: process.env.MAIL_CONTACT || "",
   } as MailConfig,
+  s3: {
+    resumeBucket: process.env.RESUME_BUCKET || "",
+  },
   db: {
     postgres: {
       options: {
