@@ -5,6 +5,7 @@ import Program from "./program";
 import BlogPost from "./blogpost";
 import contact from "./ContactFormSubmission"
 import Tag from "./tag";
+import User from "./User"
 import AdminUser from "./adminUser";
 import ContactUsRequest from "./contactUsRequest";
 import { DataTypes } from "sequelize";
@@ -53,5 +54,6 @@ export {
   Tag,
   AdminUser,
   ContactUsRequest,
-  contact
+  contact,
+  User
 };
