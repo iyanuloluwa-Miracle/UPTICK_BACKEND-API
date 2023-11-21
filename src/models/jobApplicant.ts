@@ -12,7 +12,7 @@ import { Job } from ".";
 export interface JobApplicantAttributes {
   jobApplicantId?: string;
   jobId?: ForeignKey<Job["jobId"]>;
-  resume: string;
+  resumeUrl: string;
   fullName: string;
   email: string;
   phone: string;
@@ -37,7 +37,7 @@ class JobApplicant
   declare jobApplicantId: CreationOptional<string>;
   declare jobId: ForeignKey<Job["jobId"]>;
 
-  declare resume: string;
+  declare resumeUrl: string;
   declare fullName: string;
   declare email: string;
   declare phone: string;
@@ -59,7 +59,7 @@ JobApplicant.init(
       defaultValue: DataTypes.UUIDV4, // Or DataTypes.UUIDV1
       primaryKey: true,
     },
-    resume: {
+    resumeUrl: {
       type: DataTypes.STRING,
       allowNull: false,
     },
@@ -96,7 +96,7 @@ JobApplicant.init(
       type: DataTypes.STRING,
     },
     additionalInfo: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(500),
     },
     status: {
       type: DataTypes.STRING,

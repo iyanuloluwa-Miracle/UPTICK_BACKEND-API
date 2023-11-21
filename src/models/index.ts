@@ -3,7 +3,7 @@ import JobApplicant from "./jobApplicant";
 import Job from "./job";
 import Program from "./program";
 import BlogPost from "./blogpost";
-import contact from "./ContactFormSubmission"
+import contact from "./ContactFormSubmission";
 import Tag from "./tag";
 import AdminUser from "./adminUser";
 import ContactUsRequest from "./contactUsRequest";
@@ -35,10 +35,10 @@ const setupAssociations = () => {
 
   // Many-to-Many relationship
   BlogPost.belongsToMany(Tag, {
-    as: "associatedTags",
-    through: "BlogPostTags",
+    as: "tags",
+    through: "blogPostTags",
   });
-  Tag.belongsToMany(BlogPost, { as: "blogPosts", through: "BlogPostTags" });
+  Tag.belongsToMany(BlogPost, { as: "blogPosts", through: "blogPostTags" });
 };
 
 // Call the function to setup associations
@@ -53,5 +53,5 @@ export {
   Tag,
   AdminUser,
   ContactUsRequest,
-  contact
+  contact,
 };

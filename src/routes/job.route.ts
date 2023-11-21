@@ -1,6 +1,7 @@
 // Import necessary modules
 import express, { Router } from "express";
 import JobController from "../controllers/jobController";
+import ApplicantController from "../controllers/applicantController";
 
 // Create a new router
 const router: Router = express.Router();
@@ -18,7 +19,8 @@ router
   .delete(JobController.deleteJob); // DELETE /jobs/:id - Delete a job by ID
 
 // Endpoint to list all applicants for a job
-router.route("/:id/applicants").get(JobController.listApplicants); // GET /jobs/:id/applicants - Get all applicants for a job by job ID
+router.post("/:jobId/applications", ApplicantController.applyForJob);
+router.get("/:jobId/applications", ApplicantController.getApplicantsForJob);
 
 // Export the router for use in other parts of your application
 export default router;

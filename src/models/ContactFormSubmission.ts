@@ -55,7 +55,7 @@ ContactFormSubmission.init(
       allowNull: false,
     },
   },
-  { sequelize, modelName: "contactFormSubmission" }
+  { sequelize, modelName: "contactFormSubmission" },
 );
 
 export default ContactFormSubmission;

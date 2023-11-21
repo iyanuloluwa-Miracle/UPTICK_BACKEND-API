@@ -3,45 +3,13 @@ import { Job, JobApplicant } from "../models";
 import { JobAttributes } from "../models/job";
 import { getPaginationOptions } from "../utils/helper";
 
-// interface to be followed when updating a job
-interface JobUpdateAttributes {
-  jobId?: string;
-  applicantId?: string;
-  title?: string;
-  description?: string;
-  requirements?: string;
-  applicationFormLink?: string;
-  companyLogo?: string;
-  applicationDeadline?: Date | string;
-  startDate?: Date | string;
-  endDate?: Date | string;
-}
-
 class JobController {
   static async createJob(req: Request, res: Response): Promise<void> {
     try {
-      const {
-        title,
-        description,
-        requirements,
-        applicationFormLink,
-        companyLogo,
-        applicationDeadline,
-        startDate,
-        endDate,
-      } = req.body as JobAttributes;
+      const job = req.body as Omit<JobAttributes, "jobId" | "status">;
 
       // Create new Job
-      const newJob = await Job.create({
-        title,
-        description,
-        requirements,
-        applicationFormLink,
-        companyLogo,
-        applicationDeadline: new Date(applicationDeadline),
-        startDate: new Date(startDate),
-        endDate: new Date(endDate),
-      });
+      const newJob = await Job.create({ ...job });
 
       res
         .status(201)
@@ -114,7 +82,7 @@ class JobController {
   static async updateJob(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params;
-      const updateData = req.body as JobUpdateAttributes;
+      const updateData = req.body as JobAttributes;
       const [updateCount, updatedJobs] = await Job.update(updateData, {
         where: { jobId: id },
         returning: true,
@@ -132,29 +100,6 @@ class JobController {
       res
         .status(500)
         .json({ message: "An error occurred while updating the job" });
-    }
-  }
-
-  // endpoint to get the list of all applicants for a job
-  static async listApplicants(req: Request, res: Response): Promise<void> {
-    try {
-      const jobId = req.params.id;
-      if (!jobId) {
-        res.status(400).send({ error: "Job ID is required" });
-        return;
-      }
-      const applicants = await JobApplicant.findAll({
-        where: { jobId },
-        attributes: {
-          exclude: ["jobId", "createdAt", "updatedAt"],
-        },
-      });
-      res.status(200).json(applicants);
-    } catch (error) {
-      console.error(error);
-      res
-        .status(500)
-        .send({ error: "An error occurred while fetching applicants" });
     }
   }
 }

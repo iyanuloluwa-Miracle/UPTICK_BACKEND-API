@@ -15,8 +15,9 @@ export interface JobAttributes {
   applicationFormLink: string;
   companyLogo: string;
   applicationDeadline: Date | string;
-  startDate: Date | string;
+  startDate?: Date | string;
   endDate: Date | string;
+  status?: string;
 }
 
 class Job
@@ -30,8 +31,9 @@ class Job
   declare applicationFormLink: string;
   declare companyLogo: string;
   declare applicationDeadline: Date | string;
-  declare startDate: Date | string;
+  declare startDate?: Date | string;
   declare endDate: Date | string;
+  declare status?: string;
 }
 
 Job.init(
@@ -46,7 +48,7 @@ Job.init(
       allowNull: false,
     },
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(1000),
       allowNull: false,
     },
     requirements: {
@@ -67,11 +69,15 @@ Job.init(
     },
     startDate: {
       type: DataTypes.DATE,
-      allowNull: false,
+      defaultValue: DataTypes.NOW,
     },
     endDate: {
       type: DataTypes.DATE,
       allowNull: false,
+    },
+    status: {
+      type: DataTypes.STRING,
+      defaultValue: "open",
     },
   },
   { sequelize, modelName: "job" },
