@@ -3,6 +3,7 @@ import { Job, JobApplicant } from "../models";
 import { JobAttributes } from "../models/job";
 import { getPaginationOptions } from "../utils/helper";
 
+
 // interface to be followed when updating a job
 interface JobUpdateAttributes {
   jobId?: string;
@@ -15,8 +16,14 @@ interface JobUpdateAttributes {
   applicationDeadline?: Date | string;
   startDate?: Date | string;
   endDate?: Date | string;
+  jobTitle?: string;
+  company?: string;
+  deadline?: Date | string;
+  jobDescription?: string;
+  jobTypes?: string;
+  jobCategory?: string;
+  location?: string;
 }
-
 class JobController {
   static async createJob(req: Request, res: Response): Promise<void> {
     try {
@@ -29,8 +36,15 @@ class JobController {
         applicationDeadline,
         startDate,
         endDate,
+        jobTitle,
+        company,
+        deadline,
+        jobDescription,
+        jobTypes,
+        jobCategory,
+        location,
       } = req.body as JobAttributes;
-
+  
       // Create new Job
       const newJob = await Job.create({
         title,
@@ -41,8 +55,15 @@ class JobController {
         applicationDeadline: new Date(applicationDeadline),
         startDate: new Date(startDate),
         endDate: new Date(endDate),
+        jobTitle,
+        company,
+        deadline: new Date(deadline),
+        jobDescription,
+        jobTypes,
+        jobCategory,
+        location,
       });
-
+  
       res
         .status(201)
         .json({ message: "Job created successfully", job: newJob });
@@ -53,6 +74,7 @@ class JobController {
         .json({ message: "An error occurred while creating the job" });
     }
   }
+  
 
   static async getJob(req: Request, res: Response): Promise<void> {
     try {

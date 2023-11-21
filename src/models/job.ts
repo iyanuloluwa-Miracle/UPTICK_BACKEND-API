@@ -17,6 +17,13 @@ export interface JobAttributes {
   applicationDeadline: Date | string;
   startDate: Date | string;
   endDate: Date | string;
+  jobTitle: string;
+  company: string;
+  deadline: Date | string;
+  jobDescription: string;
+  jobTypes: string; // Assuming job types will be a comma-separated string
+  jobCategory: string;
+  location: string;
 }
 
 class Job
@@ -32,13 +39,21 @@ class Job
   declare applicationDeadline: Date | string;
   declare startDate: Date | string;
   declare endDate: Date | string;
+  declare jobTitle: string;
+  declare company: string;
+  declare deadline: Date | string;
+  declare jobDescription: string;
+  declare jobTypes: string;
+  declare jobCategory: string;
+  declare location: string;
+
 }
 
 Job.init(
   {
     jobId: {
       type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4, // Or DataTypes.UUIDV1
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
     title: {
@@ -71,6 +86,34 @@ Job.init(
     },
     endDate: {
       type: DataTypes.DATE,
+      allowNull: false,
+    },
+    jobTitle: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    company: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    deadline: {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    jobDescription: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    jobTypes: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    jobCategory: {
+      type: DataTypes.STRING,
+      allowNull: false,
+    },
+    location: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
   },
