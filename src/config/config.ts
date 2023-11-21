@@ -31,6 +31,7 @@ const config = {
   } as MailConfig,
   s3: {
     resumeBucket: process.env.RESUME_BUCKET || "",
+    blogBucket: process.env.BLOG_BUCKET || "",
   },
   db: {
     postgres: {
