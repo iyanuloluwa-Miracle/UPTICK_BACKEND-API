@@ -38,7 +38,7 @@ export default class FileStorageService implements StorageService {
       throw new Error("An error occurred while uploading a file");
     }
 
-    return filePath;
+    return path.resolve(filePath);
   }
 
   public async get(url: string): Promise<Buffer> {
