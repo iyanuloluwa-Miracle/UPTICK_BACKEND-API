@@ -1,7 +1,7 @@
 // Import necessary modules
 import express, { NextFunction, Request, Response, Router } from "express";
 import multer from "multer";
-import ApplicantController from "../controllers/applicantController";
+import JobApplicantController from "../controllers/jobApplicantController";
 import JobController from "../controllers/jobController";
 
 // Create a new router
@@ -28,9 +28,9 @@ router
 router.post(
   "/:jobId/applications",
   upload.single("resume"),
-  ApplicantController.applyForJob
+  JobApplicantController.applyForJob
 );
-router.get("/:jobId/applications", ApplicantController.getApplicantsForJob);
+router.get("/:jobId/applications", JobApplicantController.getApplicantsForJob);
 
 router.use((error: any, req: Request, res: Response, next: NextFunction) => {
   if (error instanceof multer.MulterError) {

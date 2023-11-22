@@ -1,75 +1,20 @@
 import { Request, Response } from "express";
 import { Error, ValidationError } from "sequelize";
-import { Applicant, Job } from "../models";
-import { ApplicantAttributes } from "../models/applicant";
-import JobApplicant, { JobApplicantAttributes } from "../models/jobApplicant";
-import FileStorageService from "../services/file-storage";
-import StorageService from "../services/interfaces/storage";
-import S3StorageService from "../services/s3-storage";
-import { getPaginationOptions } from "../utils/helper";
 import config from "../config/config";
+import { Job } from "../models";
+import JobApplicant, { JobApplicantAttributes } from "../models/jobApplicant";
+import { getPaginationOptions } from "../utils/helper";
+import StorageService from "../services/interfaces/storage";
+import FileStorageService from "../services/file-storage";
+import S3StorageService from "../services/s3-storage";
 
 const S3_BUCKET_NAME = config.s3.resumeBucket;
 
-class ApplicantController {
+class JobApplicantController {
   static storageService: StorageService =
     process.env.NODE_ENV !== "production"
       ? new FileStorageService("./uploads")
       : new S3StorageService(S3_BUCKET_NAME);
-
-  static async createApplication(req: Request, res: Response): Promise<void> {
-    try {
-      // Get programId from URL parameters
-      const { programId } = req.params;
-
-      // Destructure applicant details from req.body
-      const {
-        firstName,
-        lastName,
-        email,
-        phone,
-        address,
-        resumeFile,
-        // No need to destructure applicationDate and status as they can be set by default
-      } = req.body as Omit<
-        ApplicantAttributes,
-        "applicantId" | "programId" | "jobId" | "applicationDate" | "status"
-      >;
-
-      // Validate programId and other necessary fields
-      if (!programId || !firstName || !lastName || !email) {
-        res.status(400).json({ message: "Required fields are missing" });
-        return;
-      }
-
-      // Create new applicant
-      const newApplicant = await Applicant.create({
-        programId,
-        firstName,
-        lastName,
-        email,
-        phone,
-        address,
-        resumeFile,
-        applicationDate: new Date(), // Set applicationDate to current date
-        status: "Pending", // Set status to Pending by default
-      });
-
-      // Send success response
-      res.status(201).json({
-        message: "Application submitted successfully",
-        applicant: newApplicant,
-      });
-    } catch (error) {
-      // Log the error (optional)
-      console.error(error);
-
-      // Send error response
-      res.status(500).json({
-        message: "An error occurred while submitting the application",
-      });
-    }
-  }
 
   static async applyForJob(req: Request, res: Response): Promise<void> {
     try {
@@ -100,7 +45,7 @@ class ApplicantController {
         return;
       }
 
-      const resumeUrl = await ApplicantController.storageService.put(
+      const resumeUrl = await JobApplicantController.storageService.put(
         req.file.buffer,
         {
           filename: req.file.originalname,
@@ -203,6 +148,54 @@ class ApplicantController {
       });
     }
   }
+
+  static async getJobApplicant(req: Request, res: Response): Promise<void> {
+    try {
+      const { applicantId } = req.params;
+      const applicant = await JobApplicant.findOne({
+        where: { applicantId },
+      });
+
+      if (!applicant) {
+        res.status(404).json({ message: "Applicant not found" });
+        return;
+      }
+
+      res.json(applicant);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error retrieving applicant" });
+    }
+  }
+
+  static async updateJobApplicant(req: Request, res: Response): Promise<void> {
+    try {
+      const { applicantId } = req.params;
+      const updateData = req.body as JobApplicantAttributes;
+
+      const [updated] = await JobApplicant.update(updateData, {
+        where: { applicantId },
+      });
+
+      if (!updated) {
+        res
+          .status(404)
+          .json({ message: "Applicant not found or no changes made" });
+        return;
+      }
+
+      const updatedApplicant = await JobApplicant.findOne({
+        where: { applicantId },
+      });
+      res.json({
+        message: "Applicant updated successfully",
+        applicant: updatedApplicant,
+      });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error updating applicant" });
+    }
+  }
 }
 
-export default ApplicantController;
+export default JobApplicantController;
