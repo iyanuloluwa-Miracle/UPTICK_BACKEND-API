@@ -1,3 +1,4 @@
+import cors from "cors";
 import express from "express";
 import config from "./config/config";
 import sequelize from "./config/database";
@@ -8,6 +9,10 @@ const app = express();
 // Body parser
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
+
+// Cors
+app.use(cors());
+
 // Your routes here
 app.use("/api", route);
 
