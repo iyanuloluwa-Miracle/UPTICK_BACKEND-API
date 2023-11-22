@@ -12,7 +12,7 @@ export interface ProgramAttributes {
   name: string;
   description: string;
   type: string;
-  curriculumOutline: string;
+  curriculumOutline: string[];
   objectives: string;
   benefits: string;
   prerequisites: string;
@@ -21,6 +21,7 @@ export interface ProgramAttributes {
   enrollmentInformation: string;
   startDate: Date | string;
   endDate: Date | string;
+  status?: string;
 }
 
 class Program
@@ -31,7 +32,7 @@ class Program
   declare name: string;
   declare description: string;
   declare type: string;
-  declare curriculumOutline: string;
+  declare curriculumOutline: string[];
   declare objectives: string;
   declare benefits: string;
   declare prerequisites: string;
@@ -40,6 +41,7 @@ class Program
   declare enrollmentInformation: string;
   declare startDate: Date | string;
   declare endDate: Date | string;
+  declare status?: string;
 }
 
 Program.init(
@@ -54,7 +56,7 @@ Program.init(
       allowNull: false,
     },
     description: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(1000),
       allowNull: false,
     },
     type: {
@@ -62,7 +64,7 @@ Program.init(
       allowNull: false,
     },
     curriculumOutline: {
-      type: DataTypes.STRING,
+      type: DataTypes.ARRAY(DataTypes.STRING),
       allowNull: false,
     },
     objectives: {
@@ -96,6 +98,10 @@ Program.init(
     endDate: {
       type: DataTypes.DATE,
       allowNull: false,
+    },
+    status: {
+      type: DataTypes.STRING,
+      defaultValue: "open",
     },
   },
   { sequelize, modelName: "program" },
