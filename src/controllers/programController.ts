@@ -1,24 +1,7 @@
 import { Request, Response } from "express";
-import { Program, Applicant } from "../models";
+import { Program } from "../models";
 import { ProgramAttributes } from "../models/program";
 import { getPaginationOptions } from "../utils/helper";
-
-// interface to be followed when updating a program
-interface ProgramUpdateAttributes {
-  programId?: string;
-  name?: string;
-  description?: string;
-  type?: string;
-  curriculumOutline?: string;
-  objectives?: string;
-  benefits?: string;
-  prerequisites?: string;
-  duration?: string;
-  applicationFormLink?: string;
-  enrollmentInformation?: string;
-  startDate?: Date | string;
-  endDate?: Date | string;
-}
 
 class ProgramController {
   // endpoint for admin to create programs
@@ -173,7 +156,7 @@ class ProgramController {
   static async updateProgram(req: Request, res: Response): Promise<void> {
     try {
       const { id } = req.params; // program ID is passed as a URL parameter
-      const updateData = req.body as ProgramUpdateAttributes; // the new program data is sent in the request body
+      const updateData = req.body as ProgramAttributes; // the new program data is sent in the request body
 
       // Update the program
       const [updateCount, updatedPrograms] = await Program.update(updateData, {
@@ -203,35 +186,6 @@ class ProgramController {
       res.status(500).json({
         message: "An error occurred while updating the program",
       });
-    }
-  }
-
-  // endpoint to get the list of all applicants for a program
-  static async listApplicants(req: Request, res: Response): Promise<void> {
-    try {
-      const programId = req.params.id; // assuming your route parameter is named 'id'
-
-      // Validate programId
-      if (!programId) {
-        res.status(400).send({ error: "Program ID is required" });
-        return;
-      }
-
-      // Fetching applicants based on program ID
-      const applicants = await Applicant.findAll({
-        where: { programId },
-        attributes: {
-          exclude: ["programId", "jobId", "createdAt", "updatedAt"],
-        },
-      });
-
-      // Sending response
-      res.status(200).json(applicants);
-    } catch (error) {
-      console.error(error); // Log error (implement using a logging library later)
-      res
-        .status(500)
-        .send({ error: "An error occurred while fetching applicants" });
     }
   }
 }

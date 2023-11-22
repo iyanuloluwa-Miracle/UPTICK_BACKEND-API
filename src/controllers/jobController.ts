@@ -20,28 +20,10 @@ interface JobUpdateAttributes {
 class JobController {
   static async createJob(req: Request, res: Response): Promise<void> {
     try {
-      const {
-        title,
-        description,
-        requirements,
-        applicationFormLink,
-        companyLogo,
-        applicationDeadline,
-        startDate,
-        endDate,
-      } = req.body as JobAttributes;
+      const job = req.body as JobAttributes;
 
       // Create new Job
-      const newJob = await Job.create({
-        title,
-        description,
-        requirements,
-        applicationFormLink,
-        companyLogo,
-        applicationDeadline: new Date(applicationDeadline),
-        startDate: new Date(startDate),
-        endDate: new Date(endDate),
-      });
+      const newJob = await Job.create({ ...job });
 
       res
         .status(201)

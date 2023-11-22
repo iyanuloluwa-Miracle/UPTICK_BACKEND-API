@@ -17,8 +17,5 @@ router
   .put(ProgramController.updateProgram) // PUT /programs/:id - Update a program by ID
   .delete(ProgramController.deleteProgram); // DELETE /programs/:id - Delete a program by ID
 
-// Endpoint to list all applicants for a program
-router.route("/:id/applicants").get(ProgramController.listApplicants); // GET /programs/:id/applicants - Get all applicants for a program by program ID
-
 // Export the router for use in other parts of your application
 export default router;

@@ -1,6 +1,5 @@
 // Import necessary modules
 import express, { Router } from "express";
-import ApplicantController from "../controllers/applicantController";
 import JobController from "../controllers/jobController";
 
 // Create a new router
@@ -17,9 +16,6 @@ router
   .get(JobController.getJob) // GET /jobs/:id - Get a single job by ID
   .put(JobController.updateJob) // PUT /jobs/:id - Update a job by ID
   .delete(JobController.deleteJob); // DELETE /jobs/:id - Delete a job by ID
-
-router.post("/:jobId/applications", ApplicantController.applyForJob);
-router.get("/:jobId/applications", ApplicantController.getApplicantsForJob);
 
 // Export the router for use in other parts of your application
 export default router;
