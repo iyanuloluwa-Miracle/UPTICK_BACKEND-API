@@ -21,7 +21,7 @@ const port: number = config.port || 3000;
 
 // Load all the models to the db, check connection and start app
 sequelize
-  .sync()
+  .sync({ force: true })
   .then(() => {
     console.log("db connected");
 
