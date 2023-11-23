@@ -3,10 +3,10 @@ import progApplicantRoute from "./progApplicant.route";
 import jobApplicantRoute from "./jobApplicant.route";
 import blogpostRoute from "./blogpost.route";
 import jobRoute from "./job.route";
-import mailRoute from "./mail.route";
+//import mailRoute from "./mail.route";
 import programRoute from "./program.route";
 import tagRoute from "./tag.route";
-import authRoute from "./auth.route";
+import authRoute from "./authAdmin.route";
 import contactRoute from "./contact.route";
 
 const router: Router = express.Router();
@@ -24,10 +24,6 @@ const defaultRoutes: DefaultRoute[] = [
   {
     path: "/jobApplicant",
     route: jobApplicantRoute,
-  },
-  {
-    path: "/mail",
-    route: mailRoute,
   },
   {
     path: "/programs",
@@ -50,7 +46,7 @@ const defaultRoutes: DefaultRoute[] = [
     route: contactRoute,
   },
   {
-    path: "/auth",
+    path: "/",
     route: authRoute,
   },
 ];
