@@ -13,12 +13,11 @@ export interface ProgramAttributes {
   description: string;
   type: string;
   curriculumOutline: string[];
-  objectives: string;
-  benefits: string;
-  prerequisites: string;
-  duration: string;
-  applicationFormLink: string;
-  enrollmentInformation: string;
+  objectives?: string;
+  benefits?: string;
+  prerequisites?: string;
+  duration?: string;
+  enrollmentInformation?: string;
   startDate: Date | string;
   endDate: Date | string;
   status?: string;
@@ -33,12 +32,11 @@ class Program
   declare description: string;
   declare type: string;
   declare curriculumOutline: string[];
-  declare objectives: string;
-  declare benefits: string;
-  declare prerequisites: string;
-  declare duration: string;
-  declare applicationFormLink: string;
-  declare enrollmentInformation: string;
+  declare objectives?: string;
+  declare benefits?: string;
+  declare prerequisites?: string;
+  declare duration?: string;
+  declare enrollmentInformation?: string;
   declare startDate: Date | string;
   declare endDate: Date | string;
   declare status?: string;
@@ -69,27 +67,23 @@ Program.init(
     },
     objectives: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     benefits: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     prerequisites: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     duration: {
       type: DataTypes.STRING,
-      allowNull: false,
-    },
-    applicationFormLink: {
-      type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     enrollmentInformation: {
       type: DataTypes.STRING,
-      allowNull: false,
+      allowNull: true,
     },
     startDate: {
       type: DataTypes.DATE,
