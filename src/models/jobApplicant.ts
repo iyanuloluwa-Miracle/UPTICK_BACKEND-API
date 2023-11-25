@@ -26,6 +26,7 @@ export interface JobApplicantAttributes {
   portfolioUrl?: string;
   otherUrl?: string;
   additionalInfo?: string;
+  status?: string;
 }
 
 class JobApplicant
@@ -53,6 +54,7 @@ class JobApplicant
   declare portfolioUrl?: string;
   declare otherUrl?: string;
   declare additionalInfo?: string;
+  declare status?: string;
 
   declare job?: Job;
 }
@@ -98,6 +100,10 @@ JobApplicant.init(
     portfolioUrl: DataTypes.STRING,
     otherUrl: DataTypes.STRING,
     additionalInfo: DataTypes.STRING(500),
+    status: {
+      type: DataTypes.STRING,
+      defaultValue: 'pending',
+    },
   },
   { sequelize, modelName: "jobApplicant" },
 );
