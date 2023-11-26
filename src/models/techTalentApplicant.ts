@@ -50,8 +50,8 @@ export class TechTalentApplicant extends Model<TechTalentApplicantAttributes> im
 
 TechTalentApplicant.init({
 talentApplicantId: {
-    type: DataTypes.INTEGER.UNSIGNED,
-    autoIncrement: true,
+    type: DataTypes.UUID,
+    defaultValue: DataTypes.UUIDV4,
     primaryKey: true,
   },
   firstName: {
