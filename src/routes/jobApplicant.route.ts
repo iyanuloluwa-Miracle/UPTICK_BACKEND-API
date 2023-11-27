@@ -8,4 +8,9 @@ router
   .post(JobApplicantController.applyForJob)
   .get(JobApplicantController.getApplicantsForJob);
 
+router
+  .route("/:applicantId/job")
+  .get(JobApplicantController.getJobApplicant)
+  .put(JobApplicantController.updateJobApplicant);
+
 export default router;
