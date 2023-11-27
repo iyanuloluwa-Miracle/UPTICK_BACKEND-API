@@ -15,7 +15,6 @@ export interface BlogPostAttributes {
   title: string;
   content: string;
   author: string;
-  publicationDate: Date | string;
   imageUrl: string;
   tags?: Tag[];
 }
@@ -28,7 +27,6 @@ class BlogPost
   declare title: string;
   declare content: string;
   declare author: string;
-  declare publicationDate: Date | string;
   declare imageUrl: string;
   declare tags?: Tag[];
 
@@ -53,10 +51,6 @@ BlogPost.init(
     },
     author: {
       type: DataTypes.STRING,
-      allowNull: false,
-    },
-    publicationDate: {
-      type: DataTypes.DATE,
       allowNull: false,
     },
     imageUrl: {

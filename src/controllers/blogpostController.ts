@@ -133,7 +133,6 @@ export default class BlogPostController {
         content,
         author,
         imageUrl,
-        publicationDate: new Date(),
       });
 
       res
