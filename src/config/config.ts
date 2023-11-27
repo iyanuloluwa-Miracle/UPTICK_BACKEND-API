@@ -32,6 +32,7 @@ const config = {
   s3: {
     resumeBucket: process.env.RESUME_BUCKET || "",
     blogBucket: process.env.BLOG_BUCKET || "",
+    jobBucket: process.env.JOB_BUCKET || "",
   },
   db: {
     postgres: {

@@ -17,7 +17,7 @@ const upload = multer({
 router
   .route("/")
   .get(JobController.getJobs) // GET /jobs - Get all jobs with optional pagination
-  .post(JobController.createJob); // POST /jobs - Create a new job
+  .post(upload.single("companyLogo"), JobController.createJob); // POST /jobs - Create a new job
 
 router
   .route("/:id")
@@ -34,7 +34,11 @@ router.get("/:jobId/applications", JobApplicantController.getApplicantsForJob);
 
 router.use((error: any, req: Request, res: Response, next: NextFunction) => {
   if (error instanceof multer.MulterError) {
-    return res.status(400).json({ message: error.message });
+    return res.status(400).json({
+      message: `${error.message}${
+        error.code === "LIMIT_FILE_SIZE" ? ". Maximum file size is 5MB." : ""
+      }`,
+    });
   }
 
   next(error);
