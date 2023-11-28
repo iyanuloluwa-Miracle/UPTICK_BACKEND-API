@@ -9,6 +9,8 @@ import JobApplicant from "./jobApplicant";
 import Program from "./program";
 import Tag from "./tag";
 import User from "./adminUser";
+import StartupApplicant from "./startUpApplicant";
+import TalentApplicant from "./techTalentApplicant";
 
 const setupAssociations = () => {
   // Many-to-One relationships
@@ -47,4 +49,6 @@ export {
   Tag,
   Contact,
   User,
+  TalentApplicant,
+  StartupApplicant,
 };

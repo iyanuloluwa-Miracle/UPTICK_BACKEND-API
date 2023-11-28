@@ -1,9 +1,19 @@
 import { Request, Response } from "express";
 import { Op } from "sequelize";
-import { BlogPost, Tag } from "../models";
+import config from "../config/config";
+import { BlogPost } from "../models";
+import FileStorageService from "../services/file-storage";
+import S3StorageService from "../services/s3-storage";
 import { getPaginationOptions } from "../utils/helper";
 
+const S3_BUCKET_NAME = config.s3.blogBucket;
+
 export default class BlogPostController {
+  static storageService =
+    process.env.NODE_ENV !== "production"
+      ? new FileStorageService("./uploads")
+      : new S3StorageService(S3_BUCKET_NAME);
+
   static async listPosts(req: Request, res: Response) {
     try {
       const search = `%${req.query.search || ""}%`;
@@ -102,14 +112,27 @@ export default class BlogPostController {
 
   static async createPost(req: Request, res: Response) {
     try {
-      const { title, content, author, imageUrl } = req.body;
+      const { title, content, author } = req.body;
+
+      if (!req.file) {
+        res.status(400).json({
+          message: "Image is required",
+        });
+        return;
+      }
+
+      const imageUrl = await BlogPostController.storageService.put(
+        req.file.buffer,
+        {
+          filename: req.file.originalname,
+        }
+      );
 
       const post = await BlogPost.create({
         title,
         content,
         author,
         imageUrl,
-        publicationDate: new Date(),
       });
 
       res
@@ -126,7 +149,13 @@ export default class BlogPostController {
   static async updatePost(req: Request, res: Response) {
     try {
       const { postId } = req.params;
-      const { title, content, author, imageUrl } = req.body;
+      const { title, content, author } = req.body;
+
+      const imageUrl = req.file
+        ? await BlogPostController.storageService.put(req.file.buffer, {
+            filename: req.file.originalname,
+          })
+        : undefined;
 
       const [updatedCount, updatedPosts] = await BlogPost.update(
         {
@@ -134,8 +163,9 @@ export default class BlogPostController {
           content,
           author,
           imageUrl,
+          postId,
         },
-        { where: { postId }, returning: true },
+        { where: { postId }, returning: true }
       );
 
       if (updatedCount === 0) {

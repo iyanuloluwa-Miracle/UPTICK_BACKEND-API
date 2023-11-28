@@ -1,6 +1,10 @@
 import { Request, Response } from "express";
+import config from "../config/config";
 import { Job } from "../models";
 import { JobAttributes } from "../models/job";
+import FileStorageService from "../services/file-storage";
+import StorageService from "../services/interfaces/storage";
+import S3StorageService from "../services/s3-storage";
 import { getPaginationOptions } from "../utils/helper";
 
 // interface to be followed when updating a job
@@ -17,13 +21,34 @@ interface JobUpdateAttributes {
   endDate?: Date | string;
 }
 
+const S3_BUCKET_NAME = config.s3.jobBucket;
+
 class JobController {
+  static storageService: StorageService =
+    process.env.NODE_ENV !== "production"
+      ? new FileStorageService("./uploads")
+      : new S3StorageService(S3_BUCKET_NAME);
+
   static async createJob(req: Request, res: Response): Promise<void> {
     try {
+      if (!req.file) {
+        res.status(400).json({
+          message: "Company logo is required",
+        });
+        return;
+      }
+
+      const companyLogo = await JobController.storageService.put(
+        req.file.buffer,
+        {
+          filename: req.file.originalname,
+        }
+      );
+
       const job = req.body as JobAttributes;
 
       // Create new Job
-      const newJob = await Job.create({ ...job });
+      const newJob = await Job.create({ ...job, companyLogo });
 
       res
         .status(201)
