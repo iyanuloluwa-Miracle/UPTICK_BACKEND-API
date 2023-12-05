@@ -46,7 +46,7 @@ BlogPost.init(
       allowNull: false,
     },
     content: {
-      type: DataTypes.STRING(2000),
+      type: DataTypes.STRING(4000),
       allowNull: false,
     },
     author: {

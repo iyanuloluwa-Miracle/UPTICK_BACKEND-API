@@ -70,7 +70,7 @@ export default class BlogPostController {
             [Op.in]: matchingPostIds,
           },
         },
-        order: [["publicationDate", "DESC"]],
+        order: [["createdAt", "DESC"]],
       });
 
       const paging = {

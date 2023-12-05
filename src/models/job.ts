@@ -48,7 +48,7 @@ Job.init(
       primaryKey: true,
     },
     description: {
-      type: DataTypes.STRING(1000),
+      type: DataTypes.STRING(4000),
       allowNull: false,
     },
     companyLogo: {
