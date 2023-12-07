@@ -9,20 +9,16 @@ import sequelize from "../config/database";
 
 export interface JobAttributes {
   jobId?: string;
-  title: string;
-  description: string;
-  requirements: string;
+  jobTitle: string;
   companyLogo: string;
   companyName: string;
-  applicationDeadline: Date | string;
-  startDate?: Date | string;
-  endDate: Date | string;
-  jobTitle: string;
-  company: string;
   deadline: Date | string;
+  description: string;
   jobType: string;
   jobCategory: string;
   location: string;
+  startDate?: Date | string;
+  endDate: Date | string;
   status?: string;
 }
 
@@ -31,16 +27,12 @@ class Job
   implements JobAttributes
 {
   declare jobId: CreationOptional<string>;
-  declare title: string;
   declare description: string;
-  declare requirements: string;
   declare companyLogo: string;
   declare companyName: string;
-  declare applicationDeadline: Date | string;
   declare startDate?: Date | string;
   declare endDate: Date | string;
   declare jobTitle: string;
-  declare company: string;
   declare deadline: Date | string;
   declare jobType: string;
   declare jobCategory: string;
@@ -55,16 +47,8 @@ Job.init(
       defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
     },
-    title: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
     description: {
-      type: DataTypes.STRING(1000),
-      allowNull: false,
-    },
-    requirements: {
-      type: DataTypes.STRING,
+      type: DataTypes.STRING(4000),
       allowNull: false,
     },
     companyLogo: {
@@ -73,10 +57,6 @@ Job.init(
     },
     companyName: {
       type: DataTypes.STRING,
-      allowNull: false,
-    },
-    applicationDeadline: {
-      type: DataTypes.DATE,
       allowNull: false,
     },
     startDate: {
@@ -88,10 +68,6 @@ Job.init(
       allowNull: false,
     },
     jobTitle: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    company: {
       type: DataTypes.STRING,
       allowNull: false,
     },

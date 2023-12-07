@@ -2,13 +2,13 @@ import { DataTypes } from "sequelize";
 import AdminUser from "./adminUser";
 import ProgramApplicant from "./programApplicant";
 import BlogPost from "./blogpost";
-import ContactUsRequest from "./contactUsRequest";
-import Contact from "./contactFormSubmission";
+//import ContactUsRequest from "./contactUsRequest";
+import Contact from "./contactForm";
 import Job from "./job";
 import JobApplicant from "./jobApplicant";
 import Program from "./program";
 import Tag from "./tag";
-import User from "./user";
+import User from "./adminUser";
 import StartupApplicant from "./startUpApplicant";
 import TalentApplicant from "./techTalentApplicant";
 
@@ -44,7 +44,6 @@ export {
   ProgramApplicant,
   JobApplicant,
   BlogPost,
-  ContactUsRequest,
   Job,
   Program,
   Tag,

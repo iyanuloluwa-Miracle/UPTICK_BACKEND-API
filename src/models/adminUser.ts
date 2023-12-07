@@ -1,50 +1,33 @@
-import {
-  Model,
-  DataTypes,
-  InferAttributes,
-  InferCreationAttributes,
-  CreationOptional,
-} from "sequelize";
+import { Model, DataTypes } from "sequelize";
 import sequelize from "../config/database";
 
-export interface AdminUserAttributes {
-  userId?: string;
-  username: string;
-  password: string;
-  role: string;
+class User extends Model {
+  public declare user_id: number;
+  public declare username: string;
+  public declare password: string;
 }
-
-class AdminUser
-  extends Model<InferAttributes<AdminUser>, InferCreationAttributes<AdminUser>>
-  implements AdminUserAttributes
-{
-  declare userId: CreationOptional<string>;
-  declare username: string;
-  declare password: string;
-  declare role: string;
-}
-
-AdminUser.init(
+User.init(
   {
-    userId: {
+    user_id: {
       type: DataTypes.UUID,
-      defaultValue: DataTypes.UUIDV4, // Or DataTypes.UUIDV1
+      defaultValue: DataTypes.UUIDV4,
       primaryKey: true,
+      allowNull: false,
     },
     username: {
       type: DataTypes.STRING,
       allowNull: false,
+      unique: true,
     },
     password: {
       type: DataTypes.STRING,
       allowNull: false,
     },
-    role: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
   },
-  { sequelize, modelName: "adminUser" },
+  {
+    sequelize,
+    modelName: "user",
+  },
 );
 
-export default AdminUser;
+export default User;

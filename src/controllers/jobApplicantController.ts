@@ -1,10 +1,21 @@
 import { Request, Response } from "express";
 import { Error, ValidationError } from "sequelize";
-import { JobApplicantAttributes } from "../models/jobApplicant";
-import { Job, JobApplicant } from "../models";
+import config from "../config/config";
+import { Job } from "../models";
+import JobApplicant, { JobApplicantAttributes } from "../models/jobApplicant";
+import FileStorageService from "../services/file-storage";
+import StorageService from "../services/interfaces/storage";
+import S3StorageService from "../services/s3-storage";
 import { getPaginationOptions } from "../utils/helper";
 
+const S3_BUCKET_NAME = config.s3.resumeBucket;
+
 class JobApplicantController {
+  static storageService: StorageService =
+    process.env.NODE_ENV !== "production"
+      ? new FileStorageService("./uploads")
+      : new S3StorageService(S3_BUCKET_NAME);
+
   static async applyForJob(req: Request, res: Response): Promise<void> {
     try {
       const { jobId } = req.params;
@@ -15,7 +26,6 @@ class JobApplicantController {
         email,
         phone,
         address,
-        resumeUrl,
         additionalInfo,
         currentCompany,
         githubUrl,
@@ -23,7 +33,24 @@ class JobApplicantController {
         otherUrl,
         portfolioUrl,
         twitterUrl,
-      } = req.body as Omit<JobApplicantAttributes, "applicationDate">;
+      } = req.body as Omit<
+        JobApplicantAttributes,
+        "applicationDate" | "resumeUrl"
+      >;
+
+      if (!req.file) {
+        res.status(400).json({
+          message: "Resume is required",
+        });
+        return;
+      }
+
+      const resumeUrl = await JobApplicantController.storageService.put(
+        req.file.buffer,
+        {
+          filename: req.file.originalname,
+        }
+      );
 
       try {
         const newApplicant = await JobApplicant.create({
