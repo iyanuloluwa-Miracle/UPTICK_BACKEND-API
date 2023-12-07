@@ -8,6 +8,7 @@ import programRoute from "./program.route";
 import tagRoute from "./tag.route";
 import authRoute from "./auth.route";
 import contactRoute from "./contact.route";
+import dashRoute from "./dashboard.route";
 
 const router: Router = express.Router();
 
@@ -53,6 +54,11 @@ const defaultRoutes: DefaultRoute[] = [
     path: "/auth",
     route: authRoute,
   },
+  {
+    path: "/dashboard",
+    route: dashRoute,
+  },
+
 ];
 
 defaultRoutes.forEach((val) => {
