@@ -11,6 +11,7 @@ router
 router
   .route("/:programApplicantId/program")
   .get(ProgramApplicantController.getProgramApplicant)
-  .put(ProgramApplicantController.updateProgramApplicant);
+  .put(ProgramApplicantController.updateProgramApplicant)
+  .delete(ProgramApplicantController.deleteProgramApplicant);
 
 export default router;

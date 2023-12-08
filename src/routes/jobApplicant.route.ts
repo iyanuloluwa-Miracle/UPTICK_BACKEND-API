@@ -11,6 +11,7 @@ router
 router
   .route("/:applicantId/job")
   .get(JobApplicantController.getJobApplicant)
-  .put(JobApplicantController.updateJobApplicant);
+  .put(JobApplicantController.updateJobApplicant)
+  .delete(JobApplicantController.deleteJobApplicant);
 
 export default router;
