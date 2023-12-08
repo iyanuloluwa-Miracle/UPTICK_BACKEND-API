@@ -84,15 +84,27 @@ class JobController {
   static async getJobs(req: Request, res: Response): Promise<void> {
     try {
       const { page, limit } = req.query;
-      const pageNumber = page ? parseInt(page as string, 10) : undefined;
-      const limitNumber = limit ? parseInt(limit as string, 10) : undefined;
+      const pageNumber = page ? parseInt(page as string, 10) : 1;
+      const limitNumber = limit ? parseInt(limit as string, 10) : 10;
       const paginationOptions = getPaginationOptions(pageNumber, limitNumber);
-      const jobs = await Job.findAll({
+
+      const { count, rows } = await Job.findAndCountAll({
         ...paginationOptions,
         order: [["startDate", "ASC"]],
         attributes: { exclude: ["createdAt", "updatedAt"] },
       });
-      res.status(200).json(jobs);
+
+      const paging = {
+        page: pageNumber,
+        total: count,
+        totalPages: Math.ceil(count / limitNumber),
+      };
+
+      res.status(200).json({
+        message: "Jobs successfully fetched.",
+        data: rows,
+        paging,
+      });
     } catch (error) {
       console.error(error);
       res

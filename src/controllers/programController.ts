@@ -91,21 +91,31 @@ class ProgramController {
       const { page, limit } = req.query;
 
       // Convert page and limit to numbers, if they are provided
-      const pageNumber = page ? parseInt(page as string, 10) : undefined;
-      const limitNumber = limit ? parseInt(limit as string, 10) : undefined;
+      const pageNumber = page ? parseInt(page as string, 10) : 1;
+      const limitNumber = limit ? parseInt(limit as string, 10) : 10;
 
       // Get the pagination options
       const paginationOptions = getPaginationOptions(pageNumber, limitNumber);
 
       // Fetch all Programs
-      const programs = await Program.findAll({
+      const { count, rows } = await Program.findAndCountAll({
         ...paginationOptions,
         order: [["startDate", "ASC"]], // Order programs by startDate
         attributes: { exclude: ["createdAt", "updatedAt"] }, // Exclude createdAt and updatedAt from the response
       });
 
+      const paging = {
+        page: pageNumber,
+        total: count,
+        totalPages: Math.ceil(count / limitNumber),
+      };
+
       // Send success response
-      res.status(200).json(programs);
+      res.status(200).json({
+        message: "Programs successfully fetched.",
+        data: rows,
+        paging,
+      });
     } catch (error) {
       // Log the error
       console.error(error);

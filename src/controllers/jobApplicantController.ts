@@ -196,6 +196,23 @@ class JobApplicantController {
       res.status(500).json({ message: "Error updating applicant" });
     }
   }
+
+  static async deleteJobApplicant(req: Request, res: Response): Promise<void> {
+    try {
+      const { applicantId } = req.params;
+      const deleted = await JobApplicant.destroy({ where: { applicantId } });
+
+      if (!deleted) {
+        res.status(404).json({ message: "Applicant not found" });
+        return;
+      }
+
+      res.json({ message: "Applicant deleted successfully" });
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: "Error deleting applicant" });
+    }
+  }
 }
 
 export default JobApplicantController;
